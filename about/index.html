@@ -3,7 +3,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
-        <title>Tags: misc | 嘉然今天学什么</title>
+        <title>about | 嘉然今天学什么</title>
         <meta name="author" content="fc235" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -27,6 +27,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -139,61 +143,46 @@
 
             <transition name="into">
             <div id="main" v-show="!loading">
-                <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        <span>
-            <a href="/tags/pt/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                pt
-            </a>
+                <div class="article">
+    <div>
+        <h1>about</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/4/15
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/misc/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                misc
-            </a>
-        </span>
-        
-        
         
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/4/11</div>
-            <a href="/uncategorized/%E4%BD%A0%E5%A5%BD/">
-                <h3>你好</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/misc/" style="color: #03a9f4">misc</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h1 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h1><p>一个正在学习的菜鸡</p>
+<p>TODO：</p>
+<ol>
+<li><ul>
+<li><input disabled="" type="checkbox"> 练习渗透</li>
+</ul>
+</li>
+<li><ul>
+<li><input disabled="" type="checkbox"> 练习编程</li>
+</ul>
+</li>
+</ol>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -226,6 +215,29 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="fc235/comment"
+    data-repo-id="R_kgDOJW5fXA"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOJW5fXM4CVyQR"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
         
     </body>
 </html>

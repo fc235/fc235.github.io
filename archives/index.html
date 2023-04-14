@@ -30,6 +30,8 @@
 
 
 
+<script src="/js/lib/search.js"></script>
+
 
 
 <link rel="stylesheet" href="/css/main.css" />
@@ -142,6 +144,8 @@
                 
 <div id="archives">
     
+    <input id="search-bar" class="input" placeholder="搜索" v-model="rawSearch" />
+    
     <div id="timeline-wrap" ref="timeline">
         
         <div class="timeline" data-title="你好">
@@ -161,7 +165,7 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/misc/" style="color: #03a9f4">misc</a>
+                            <a href="/tags/misc/" style="color: #ff7d73">misc</a>
                         </span>
                         
                     </span>
@@ -174,10 +178,19 @@
             <div class="timeline-tail"></div>
             <div class="timeline-content">
                 <div class="item-time">2023/4/14</div>
-                <a href="/uncategorized/XXE/">
+                <a href="/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/XXE/">
                     <h3>XXE</h3>
                 </a>
                 <div class="info">
+                    
+                    <span class="category">
+                        <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/">
+                            <span class="icon">
+                                <i class="fa-solid fa-bookmark fa-fw"></i>
+                            </span>
+                            网络空间安全学习
+                        </a>
+                    </span>
                     
                     
                     <span class="tags">
@@ -187,7 +200,7 @@
                         
                         <span class="tag">
                             
-                            <a href="/tags/pt/" style="color: #ff7d73">pt</a>
+                            <a href="/tags/pt/" style="color: #ffa2c4">pt</a>
                         </span>
                         
                     </span>
@@ -203,7 +216,7 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2023 嘉然今天学什么
+            2023 - 2023 嘉然今天学什么
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>

