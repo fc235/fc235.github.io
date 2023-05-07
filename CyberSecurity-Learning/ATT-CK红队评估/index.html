@@ -172,7 +172,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="color: #03a9f4">靶场实战</a>
+                <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="color: #00bcd4">靶场实战</a>
             </span>
             
         </span>
@@ -180,7 +180,8 @@
     </div>
     
     <div class="content" v-pre>
-        <h2 id="01-ATT-amp-CK红队评估"><a href="#01-ATT-amp-CK红队评估" class="headerlink" title="01 ATT&amp;CK红队评估"></a>01 ATT&amp;CK红队评估</h2><h3 id="0x01环境搭建"><a href="#0x01环境搭建" class="headerlink" title="0x01环境搭建"></a>0x01环境搭建</h3><h4 id="环境搭建测试"><a href="#环境搭建测试" class="headerlink" title="环境搭建测试"></a>环境搭建测试</h4><p>配置好网卡：这些用vmnet2(仅主机)</p>
+        <h2 id="01-ATT-amp-CK红队评估"><a href="#01-ATT-amp-CK红队评估" class="headerlink" title="01 ATT&amp;CK红队评估"></a>01 ATT&amp;CK红队评估</h2><p>[TOC]</p>
+<h3 id="0x01环境搭建"><a href="#0x01环境搭建" class="headerlink" title="0x01环境搭建"></a>0x01环境搭建</h3><h4 id="环境搭建测试"><a href="#环境搭建测试" class="headerlink" title="环境搭建测试"></a>环境搭建测试</h4><p>配置好网卡：这些用vmnet2(仅主机)</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181544836.png" alt="image-20230418154419806"></p>
 <p>这些用vmnet1(仅主机)</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304181545011.png" alt="image-20230418154503977"></p>
@@ -348,12 +349,12 @@ netsh advfirewall set allprofiles state off
 <h5 id="nmap扫描端口"><a href="#nmap扫描端口" class="headerlink" title="nmap扫描端口"></a>nmap扫描端口</h5><p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202304241000426.png" alt="image-20230424100031373"></p>
 <p>暴露端口果然多了</p>
 <h3 id="0x04-横向移动"><a href="#0x04-横向移动" class="headerlink" title="0x04 横向移动"></a>0x04 横向移动</h3><h4 id="msf-proxychain"><a href="#msf-proxychain" class="headerlink" title="msf+proxychain"></a>msf+proxychain</h4><p>搭建socks隧道，进入session，自动创建路由</p>
-<pre><code class="meterpreter">run post/multi/manage/autoroute
+<pre><code class="bash">run post/multi/manage/autoroute
 run autoroute -p # 查看路由
 bg
 </code></pre>
 <p>然后退回msf</p>
-<pre><code class="msf">use auxiliary/server/socks_proxy
+<pre><code class="bash">use auxiliary/server/socks_proxy
 show options # 查看选项，可选设置username，password
 set srvhost 127.0.0.1
 set version 4a
