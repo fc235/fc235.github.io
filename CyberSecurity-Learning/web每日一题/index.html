@@ -3,7 +3,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
-        <title>tags | 嘉然今天学什么</title>
+        <title>web每日一题 | 嘉然今天学什么</title>
         <meta name="author" content="fc235" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -27,6 +27,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -139,88 +143,82 @@
 
             <transition name="into">
             <div id="main" v-show="!loading">
-                <div id="archives">
-    
-    <div class="categories-tags">
+                <div class="article">
+    <div>
+        <h1>web每日一题</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/5/29
+        </span>
         
-        
-        <span>
-            <a href="/tags/pt/" style="background: #00a596">
+        <span class="category">
+            <a href="/categories/CyberSecurity-Learning/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                pt
+                CyberSecurity Learning
             </a>
         </span>
         
         
-        
-        <span>
-            <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                靶场实战
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/ctf/" style="color: #ffa2c4">ctf</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/web/" style="color: #ff7d73">web</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%9D%82/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                杂
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                漏洞复现
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/misc/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                misc
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/ctf/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                ctf
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/web/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                web
-            </a>
-        </span>
-        
         
     </div>
+    
+    <div class="content" v-pre>
+        <h2 id="Web每日一题"><a href="#Web每日一题" class="headerlink" title="Web每日一题"></a>Web每日一题</h2><h3 id="2023-5-29-ACTF2020-新生赛-BackupFile"><a href="#2023-5-29-ACTF2020-新生赛-BackupFile" class="headerlink" title="2023.5.29 [ACTF2020 新生赛]BackupFile"></a>2023.5.29 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]BackupFile">[ACTF2020 新生赛]BackupFile</a></h3><p>是否查看wp：是</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305292351896.png" alt="image-20230529235100863"></p>
+<p>要我找备份文件，我考虑了，www、backup、backupfile等文件名以及rar、zip后缀，但是都没有发现，用dirsearch扫目录，发现大多数都429了，但是居然扫出来一个flag.php，访问无果，应该是被解析了，猜想是文件包含，想不到于是搜了wp，发现是index.php.bak，确实没想到，大概是题做少了。下载下来看源码没想到没有文件包含</p>
+<pre><code class="php">&lt;?php
+include_once &quot;flag.php&quot;;
+
+if(isset($_GET[&#39;key&#39;])) &#123;
+    $key = $_GET[&#39;key&#39;];
+    if(!is_numeric($key)) &#123;
+        exit(&quot;Just num!&quot;);
+    &#125;
+    $key = intval($key);
+    $str = &quot;123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3&quot;;
+    if($key == $str) &#123;
+        echo $flag;
+    &#125;
+&#125;
+else &#123;
+    echo &quot;Try to find out source file!&quot;;
+&#125;
+</code></pre>
+<p>也是非常简单的一个代码啊，<code>intval()</code>之后只取123，所以get传入key值即得flag</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -254,6 +252,29 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="fc235/comment"
+    data-repo-id="R_kgDOJW5fXA"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOJW5fXM4CVyQR"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
         
     </body>
 </html>
