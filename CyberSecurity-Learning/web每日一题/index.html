@@ -177,7 +177,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #ff7d73">web</a>
+                <a href="/tags/web/" style="color: #00a596">web</a>
             </span>
             
         </span>
@@ -185,7 +185,7 @@
     </div>
     
     <div class="content" v-pre>
-        <h2 id="Web每日一题"><a href="#Web每日一题" class="headerlink" title="Web每日一题"></a>Web每日一题</h2><h3 id="2023-5-29-ACTF2020-新生赛-BackupFile"><a href="#2023-5-29-ACTF2020-新生赛-BackupFile" class="headerlink" title="2023.5.29 [ACTF2020 新生赛]BackupFile"></a>2023.5.29 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF2020%20%E6%96%B0%E7%94%9F%E8%B5%9B]BackupFile">[ACTF2020 新生赛]BackupFile</a></h3><p>是否查看wp：是</p>
+        <h2 id="Web每日一题-2023-05"><a href="#Web每日一题-2023-05" class="headerlink" title="Web每日一题 2023.05"></a>Web每日一题 2023.05</h2><h3 id="2023-5-29-ACTF2020-新生赛-BackupFile-https-buuoj-cn-challenges-ACTF2020-新生赛-BackupFile"><a href="#2023-5-29-ACTF2020-新生赛-BackupFile-https-buuoj-cn-challenges-ACTF2020-新生赛-BackupFile" class="headerlink" title="2023.5.29 [[ACTF2020 新生赛]BackupFile](https://buuoj.cn/challenges#[ACTF2020 新生赛]BackupFile)"></a>2023.5.29 [[ACTF2020 新生赛]BackupFile](<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF2020">https://buuoj.cn/challenges#[ACTF2020</a> 新生赛]BackupFile)</h3><p>是否查看wp：是</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305292351896.png" alt="image-20230529235100863"></p>
 <p>要我找备份文件，我考虑了，www、backup、backupfile等文件名以及rar、zip后缀，但是都没有发现，用dirsearch扫目录，发现大多数都429了，但是居然扫出来一个flag.php，访问无果，应该是被解析了，猜想是文件包含，想不到于是搜了wp，发现是index.php.bak，确实没想到，大概是题做少了。下载下来看源码没想到没有文件包含</p>
 <pre><code class="php">&lt;?php
@@ -207,6 +207,43 @@ else &#123;
 &#125;
 </code></pre>
 <p>也是非常简单的一个代码啊，<code>intval()</code>之后只取123，所以get传入key值即得flag</p>
+<h3 id="2023-5-30-RoarCTF-2019-Easy-Calc-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Calc"><a href="#2023-5-30-RoarCTF-2019-Easy-Calc-https-buuoj-cn-challenges-RoarCTF-2019-Easy-Calc" class="headerlink" title="2023.5.30  [[RoarCTF 2019]Easy Calc](https://buuoj.cn/challenges#[RoarCTF 2019]Easy Calc)"></a>2023.5.30  [[RoarCTF 2019]Easy Calc](<a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[RoarCTF">https://buuoj.cn/challenges#[RoarCTF</a> 2019]Easy Calc)</h3><p>是否查看wp：是</p>
+<p>点开题发现是个计算器，正常1+1是可以计算的，但是复杂一点的算式就无法计算了，猜想是命令执行但是有过滤</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305301053069.png" alt="image-20230530105342041"></p>
+<p>看源码发现果然有过滤，同时也发现了calc.php</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305301054324.png" alt="image-20230530105432300"></p>
+<p>进入calc.php会给出代码</p>
+<pre><code class="php">&lt;?php
+    error_reporting(0);
+if(!isset($_GET[&#39;num&#39;]))&#123;
+    show_source(__FILE__);
+&#125;else&#123;
+    $str = $_GET[&#39;num&#39;];
+    $blacklist = [&#39; &#39;, &#39;\t&#39;, &#39;\r&#39;, &#39;\n&#39;,&#39;\&#39;&#39;, &#39;&quot;&#39;, &#39;`&#39;, &#39;\[&#39;, &#39;\]&#39;,&#39;\$&#39;,&#39;\\&#39;,&#39;\^&#39;];
+    foreach ($blacklist as $blackitem) &#123;
+        if (preg_match(&#39;/&#39; . $blackitem . &#39;/m&#39;, $str)) &#123;
+            die(&quot;what are you want to do?&quot;);
+        &#125;
+    &#125;
+    eval(&#39;echo &#39;.$str.&#39;;&#39;);
+&#125;
+?&gt; 
+</code></pre>
+<p>存在黑名单，试了一会发现我不会饶过，于是查看wp，发现这题要考的是php的字符串解析特性</p>
+<blockquote>
+<p>php将查询字符串转换为内部$*GET或者关联数组$*POST（例如&#x2F;?foo&#x3D;bar会转为Array([foo] &#x3D; &gt; “bar”)，查询字符串在解析中会将某些字符删除或用下划线替代（例如 &#x2F;?%20news[id%00&#x3D;42]会转为Array[news_id] &#x3D; &gt; 42)</p>
+</blockquote>
+<p>php需要将所有参数转换为有效的变量名，因此在解析查询字符串的时候，他会删除空白符，将某些字符转换为下划线，所以这里waf不让num传入字母，我们不能让waf检测出字母，所以我们可以在num前加上一个空格，在php解析时就会把这个空格给删去，但是waf因为空格检测不到num参数，所以就可以成功绕过。</p>
+<pre><code class="php">/calc.php? num=a
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305301134650.png" alt="image-20230530113426629"></p>
+<p>接下来直接只需要找到flag就行</p>
+<pre><code class="php">var_dump(scandir(chr(47))) //&#39;/&#39;在blacklist中，所以用ascii转
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202305301132639.png" alt="image-20230530113234617"></p>
+<p>找到这个flagg，然后用输出flag</p>
+<pre><code class="php">var_dump(file_get_contents(chr(47).chr(102).chr(49).chr(97).chr(103).chr(103)))
+</code></pre>
 
     </div>
     
