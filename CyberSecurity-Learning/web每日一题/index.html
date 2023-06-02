@@ -285,7 +285,43 @@ if($_POST[&#39;param1&#39;]!==$_POST[&#39;param2&#39;]&amp;&amp;md5($_POST[&#39;
 b=M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%02%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2
 </code></pre>
 <p>他们的md5值是相等的，考虑到要将一些不可见字符传到服务器，这里使用url编码。</p>
-<h3 id="2023-6-2-护网杯-2018-easy-tornado"><a href="#2023-6-2-护网杯-2018-easy-tornado" class="headerlink" title="2023.6.2 [护网杯 2018]easy_tornado"></a>2023.6.2 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%8A%A4%E7%BD%91%E6%9D%AF%202018]easy_tornado">[护网杯 2018]easy_tornado</a></h3><p>是否查看wp：</p>
+<h3 id="2023-6-2-护网杯-2018-easy-tornado"><a href="#2023-6-2-护网杯-2018-easy-tornado" class="headerlink" title="2023.6.2 [护网杯 2018]easy_tornado"></a>2023.6.2 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%8A%A4%E7%BD%91%E6%9D%AF%202018]easy_tornado">[护网杯 2018]easy_tornado</a></h3><p>是否查看wp：是</p>
+<p>进入题目给出三个页面，点击进入后url传入两个参数，一个是filename还有一个是filehash</p>
+<pre><code class="html">/flag.txt
+flag in /fllllllllllllag
+
+/welcome.txt
+render
+
+/hints.txt
+md5(cookie_secret+md5(filename))
+</code></pre>
+<p>flag告诉我们知道flag的位置，尝试将url中&#x2F;flag替换为&#x2F;fllllllllllllag，会提示Error</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306022103618.png" alt="image-20230602210349825"></p>
+<p>welcome一开始没看懂，后来知道是提示用了render函数，hints则是提示我们url后面的filehash是如何得到的，那么想知道得知道cookie_secret，结合题目的tornado，搜索得知这题是模板注入，可是我还没学到这个东西，直接看wp学习一下。</p>
+<p>先找到注入点，测试一些简单的测试用例</p>
+<blockquote>
+<p>简单的数学表达式，<code>&#123;&#123; 7+7 &#125;&#125; =&gt; 14</code><br>字符串表达式 <code>&#123;&#123; "ajin" &#125;&#125; =&gt; ajin</code></p>
+</blockquote>
+<p>前面那个Error的地方就很有可能是注入点。尝试简单的数字1可以，但是如果有符号、字符串或者是命令执行</p>
+<blockquote>
+<p><code>&#123;% import os %&#125;&#123;&#123; os.popen("whoami").read() &#125;&#125;</code></p>
+</blockquote>
+<p>那就会提示orz了，猜测可能是被过滤。最后测试发现只有.没有被过滤。</p>
+<blockquote>
+<p>tornado.web.Application.settings：传递给构造函数的其他关键字参数保存在settings字典中，并且通常在文档中称为“应用程序设置”。其中就有cookie_secret</p>
+</blockquote>
+<p>可以访问到cookie_secret的函数有：<code>RequestHandler.get_secure_cookie</code>、<code>RequestHandler.settings</code>、<code>self.application.settings</code>、<code>get_secure_cookie</code>。前三个没有被过滤但是需要用实例化的对象调用函数去访问，而handler就是处理当前页面的HTTP请求的RequestHandler对象，直接访问</p>
+<pre><code class="http">error?msg=&#123;&#123;handler.settings&#125;&#125;
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306022323879.png" alt="image-20230602232321462"></p>
+<p>获得cookie_secret:65e41e0a-cee7-48ac-95cf-49c2bb20da0b</p>
+<p>之后按照hints中内容先对文件名进行md5计算，之后再对拼接后的字符串进行MD5计算，得到的即为文件哈希</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306022325959.png" alt="image-20230602232550782"></p>
+<p>之后可以尝试访问该文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306022327952.png" alt="image-20230602232729671"></p>
+<p>得到flag</p>
+<h3 id="2023-6-3-HCTF-2018-admin"><a href="#2023-6-3-HCTF-2018-admin" class="headerlink" title="2023.6.3 [HCTF 2018]admin"></a>2023.6.3 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[HCTF%202018]admin">[HCTF 2018]admin</a></h3><p>是否查看wp：</p>
 
     </div>
     
