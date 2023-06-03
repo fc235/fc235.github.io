@@ -172,12 +172,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #03a9f4">ctf</a>
+                <a href="/tags/ctf/" style="color: #ff7d73">ctf</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #03a9f4">web</a>
+                <a href="/tags/web/" style="color: #00bcd4">web</a>
             </span>
             
         </span>
@@ -321,7 +321,38 @@ md5(cookie_secret+md5(filename))
 <p>之后可以尝试访问该文件</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306022327952.png" alt="image-20230602232729671"></p>
 <p>得到flag</p>
-<h3 id="2023-6-3-HCTF-2018-admin"><a href="#2023-6-3-HCTF-2018-admin" class="headerlink" title="2023.6.3 [HCTF 2018]admin"></a>2023.6.3 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[HCTF%202018]admin">[HCTF 2018]admin</a></h3><p>是否查看wp：</p>
+<h3 id="2023-6-3-HCTF-2018-admin"><a href="#2023-6-3-HCTF-2018-admin" class="headerlink" title="2023.6.3 [HCTF 2018]admin"></a>2023.6.3 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[HCTF%202018]admin">[HCTF 2018]admin</a></h3><p>是否查看wp：是</p>
+<p>打开题目是一个文章发布平台，查看源码发现提示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306031436806.png" alt="image-20230603143600494"></p>
+<p>然后有登陆注册页面，尝试注册一个用户进去先看看，发现有文章发布和更改密码界面，猜测可能是sql注入或者二次注入，发布文章部分无法查看，注册时含有特殊符号会直接报错，所以应该不是sql注入。用burp抓包发现cookies中有session部分，猜测可能是session伪造，但是不知道secret_key，猜了几个也不对，看wp才发现漏了提示，在修改密码页面查看页面源代码会给出一个github的地址，里面存着源码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306031520309.png" alt="image-20230603152013258"></p>
+<p>但是这个地址已经没了，有人保存在了<a target="_blank" rel="noopener" href="https://github.com/Wkh19/hctf_flask/">这里</a></p>
+<p>在<code>__init__.py</code>中可以看到这里用了flask框架，果然就是session伪造了，大致翻一遍代码之后可以找到&#x2F;app&#x2F;templates&#x2F;index.html下有这么一些代码</p>
+<pre><code class="html">&#123;% include('header.html') %&#125;
+&#123;% if current_user.is_authenticated %&#125;
+<h1 class="nav">Hello &#123;&#123; session['name'] &#125;&#125;</h1>
+&#123;% endif %&#125;
+&#123;% if current_user.is_authenticated and session['name'] == 'admin' %&#125;
+<h1 class="nav">hctf&#123;xxxxxxxxx&#125;</h1>
+&#123;% endif %&#125;
+&lt;!-- you are not admin --&gt;
+&lt;h1 class=&quot;nav&quot;&gt;Welcome to hctf&lt;/h1&gt;
+</code></pre>
+<p>可知，这里需要我们将session的name字段构造成admin</p>
+<p>然后在&#x2F;app&#x2F;config.py中可以找到secret_key</p>
+<pre><code class="python">import os
+
+class Config(object):
+    SECRET_KEY = os.environ.get(&#39;SECRET_KEY&#39;) or &#39;ckj123&#39;
+    SQLALCHEMY_DATABASE_URI = &#39;mysql+pymysql://root:adsl1234@db:3306/test&#39;
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+</code></pre>
+<p>利用<a target="_blank" rel="noopener" href="https://github.com/noraj/flask-session-cookie-manager">fscm</a>解密修改name字段，之后重新加密回去</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306031525664.png" alt="image-20230603152551664"></p>
+<p>得到的session在浏览器中设置，返回index页面即可得到flag</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306031527477.png" alt="image-20230603152722299"></p>
+<p>本题除此以外还有Unicode欺骗，条件竞争等方法，都对代码审计有一定要求。</p>
+<h3 id="2023-6-3-MRCTF2020-你传你🐎呢"><a href="#2023-6-3-MRCTF2020-你传你🐎呢" class="headerlink" title="2023.6.3 [MRCTF2020]你传你🐎呢"></a>2023.6.3 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E4%BD%A0%E4%BC%A0%E4%BD%A0%F0%9F%90%8E%E5%91%A2">[MRCTF2020]你传你🐎呢</a></h3><p>是否查看wp：</p>
 
     </div>
     
