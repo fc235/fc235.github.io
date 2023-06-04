@@ -177,7 +177,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #00bcd4">web</a>
+                <a href="/tags/web/" style="color: #ffa2c4">web</a>
             </span>
             
         </span>
@@ -352,7 +352,21 @@ class Config(object):
 <p>得到的session在浏览器中设置，返回index页面即可得到flag</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306031527477.png" alt="image-20230603152722299"></p>
 <p>本题除此以外还有Unicode欺骗，条件竞争等方法，都对代码审计有一定要求。</p>
-<h3 id="2023-6-3-MRCTF2020-你传你🐎呢"><a href="#2023-6-3-MRCTF2020-你传你🐎呢" class="headerlink" title="2023.6.3 [MRCTF2020]你传你🐎呢"></a>2023.6.3 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E4%BD%A0%E4%BC%A0%E4%BD%A0%F0%9F%90%8E%E5%91%A2">[MRCTF2020]你传你🐎呢</a></h3><p>是否查看wp：</p>
+<h3 id="2023-6-4-MRCTF2020-你传你🐎呢"><a href="#2023-6-4-MRCTF2020-你传你🐎呢" class="headerlink" title="2023.6.4 [MRCTF2020]你传你🐎呢"></a>2023.6.4 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E4%BD%A0%E4%BC%A0%E4%BD%A0%F0%9F%90%8E%E5%91%A2">[MRCTF2020]你传你🐎呢</a></h3><p>是否查看wp：是</p>
+<p>这道题印象中之前做过，所以尝试了上传一些东西，不知道为什么上传正常图片也会被拦截，但是上传一句话木马的时候修改content-type和文件后缀名是可以上传的，但是无法被解析，单独修改content-type会被检测到，尝试多种后缀都不行，猜测可能是黑白名单，尝试上传.htaccess空文件，成功。但是忘了内容怎么写。。所以去看了wp，这里正好记录一下</p>
+<pre><code class="htaccess">&lt;FilesMatch &quot;ant&quot;&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre>
+<p>这里是将文件名中带有ant字样的文件全部按照php解析，还有一种写法是</p>
+<pre><code class="htaccess">AddType application/x-httpd-php .png
+</code></pre>
+<p>这里将png解析为php</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306041500437.png" alt="image-20230604145954492"></p>
+<p>修改content-type后就可以上传了，同样再将一句话🐎传上去</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306041507538.png" alt="image-20230604150716485"></p>
+<p>获取路径后用shell工具进行连接，flag就在根目录下</p>
+<h3 id="2023-6-5-ZJCTF-2019-NiZhuanSiWei"><a href="#2023-6-5-ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="2023.6.5 [ZJCTF 2019]NiZhuanSiWei"></a>2023.6.5 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ZJCTF%202019]NiZhuanSiWei">[ZJCTF 2019]NiZhuanSiWei</a></h3><p>是否查看wp：</p>
 
     </div>
     
