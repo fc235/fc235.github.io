@@ -3,7 +3,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
-        <title>Hexo升级指南 | 嘉然今天学什么</title>
+        <title>Tags: vulnhub | 嘉然今天学什么</title>
         <meta name="author" content="fc235" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -27,10 +27,6 @@
 
 
 <script src="/js/lib/preview.js"></script>
-
-
-
-
 
 
 
@@ -143,65 +139,141 @@
 
             <transition name="into">
             <div id="main" v-show="!loading">
-                <div class="article">
-    <div>
-        <h1>Hexo升级指南</h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2023/4/25
-        </span>
+                <div id="archives">
+    
+    <div class="categories-tags">
         
-        <span class="category">
-            <a href="/categories/Misc/">
+        
+        <span>
+            <a href="/tags/pt/" style="background: #ffa2c4">
                 <span class="icon">
-                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                    <i class="fa-solid fa-tags fa-fw"></i>
                 </span>
-                Misc
+                pt
             </a>
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/%E6%9D%82/" style="color: #ffa2c4">杂</a>
-            </span>
-            
+        
+        <span>
+            <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                漏洞复现
+            </a>
         </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E9%9D%B6%E5%9C%BA%E5%AE%9E%E6%88%98/" style="background: #00a596">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                靶场实战
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/%E6%9D%82/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                杂
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/vulnhub/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                vulnhub
+            </a>
+        </span>
+        
+        
+        
+        
+        
+        <span>
+            <a href="/tags/ctf/" style="background: #ff7d73">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                ctf
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/web/" style="background: #ffa2c4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                web
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/tags/misc/" style="background: #03a9f4">
+                <span class="icon">
+                    <i class="fa-solid fa-tags fa-fw"></i>
+                </span>
+                misc
+            </a>
+        </span>
+        
         
     </div>
     
-    <div class="content" v-pre>
-        <h2 id="Hexo版本升级"><a href="#Hexo版本升级" class="headerlink" title="Hexo版本升级"></a>Hexo版本升级</h2><hr>
-<p>今天发现hexo有7的rc版本了，而我的才6，所以想升级一下。</p>
-<pre><code class="shell">hexo -v # 查看版本
-npm i hexo-cli -g # 全局升级hexo-cli
-npm install -g npm-check npm-upgrade
-npm-check
-npm-upgrade
-npm update -g
-npm update --save
-</code></pre>
-
+    <div class="timeline">
+        <div class="timeline-tail"></div>
+        <div class="timeline-content">
+            <div class="item-time">2023/7/20</div>
+            <a href="/CyberSecurity-Learning/XXE-Lab-1/">
+                <h3>XXE-Lab_1</h3>
+            </a>
+            <div class="info">
+                
+                <span class="category">
+                    <a href="/categories/CyberSecurity-Learning/">
+                        <span class="icon">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </span>
+                        CyberSecurity Learning
+                    </a>
+                </span>
+                
+                
+                <span class="tags">
+                    <span class="icon">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/pt/" style="color: #ffa2c4">pt</a>
+                    </span>
+                    
+                    <span class="tag">
+                        
+                        <a href="/tags/vulnhub/" style="color: #00bcd4">vulnhub</a>
+                    </span>
+                    
+                </span>
+                
+            </div>
+        </div>
     </div>
-    
-    
-    
-    
-    <div id="comment">
-        <div id="giscus-container" class="giscus"></div>
-    </div>
-    
-    
-    
     
 </div>
 
@@ -235,29 +307,6 @@ npm update --save
             
         </div>
         <script src="/js/main.js"></script>
-        
-        
-<script
-    src="https://giscus.app/client.js"
-    data-repo="fc235/comment"
-    data-repo-id="R_kgDOJW5fXA"
-    data-category="Announcements"
-    data-category-id="DIC_kwDOJW5fXM4CVyQR"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="1"
-    data-input-position="bottom"
-    data-theme="preferred_color_scheme"
-    data-lang="zh-CN"
-    crossorigin
-    async
-></script>
-
-
-
-
-
         
     </body>
 </html>
