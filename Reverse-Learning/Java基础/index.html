@@ -1,0 +1,1280 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Java基础 | 嘉然今天学什么</title>
+        <meta name="author" content="fc235" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+        <link rel="icon" href="/images/avatar.jpg" />
+        <script src="https://cdn.staticfile.org/vue/3.2.47/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.3.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/fonts.min.css" />
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <div id="layout">
+            <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+            </transition>
+            <nav id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <div class="desktop-menu">
+        <a class="title" href="/">
+            <span>嘉然今天学什么</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </div>
+    <div id="mobile-menu">
+        <div class="curtain" @click="shouMenuItems = !shouMenuItems" v-show="shouMenuItems"></div>
+        <div class="title" @click="shouMenuItems = !shouMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;嘉然今天学什么</span>
+        </div>
+        <transition name="slide">
+        <div class="items" v-show="shouMenuItems">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-id-card fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-box-archive fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                </div>
+            </a>
+            
+            <a href="/categories">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-bookmark fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                </div>
+            </a>
+            
+            <a href="/tags">
+                <div class="item">
+                    <div style="min-width: 20px; max-width: 50px; width: 10%">
+                        <i class="fa-solid fa-tags fa-fw"></i>
+                    </div>
+                    <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                </div>
+            </a>
+            
+        </div>
+        </transition>
+    </div>
+</nav>
+
+            <transition name="into">
+            <div id="main" v-show="!loading">
+                <div class="article">
+    <div>
+        <h1>Java基础</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/7/25
+        </span>
+        
+        <span class="category">
+            <a href="/categories/Reverse-Learning/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                Reverse Learning
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Java/" style="color: #03a9f4">Java</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Andrev/" style="color: #03a9f4">Andrev</a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h1 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h1><p>[toc]</p>
+<h2 id="0x01-类的定义格式"><a href="#0x01-类的定义格式" class="headerlink" title="0x01 类的定义格式"></a>0x01 类的定义格式</h2><p>桌面窗口碰撞实例</p>
+<pre><code class="java">import java.awt.*;
+
+public class MyFrame &#123;
+    private Frame frame;
+    private int selfWidth, selfHeight;
+    private int x, y;
+    private int screenHeight, screenWidth;
+    private int loopCount = 0;
+    private boolean flagX = true, flagY = true;
+
+    public void createWindow() &#123;
+        frame = new Frame(&quot;桌面碰撞实例&quot;);
+        selfWidth = 200;
+        selfHeight = 100;
+        frame.setSize(selfWidth, selfHeight);
+        frame.setBackground(new Color(255, 0, 0));
+        int x = 200;
+        int y = 300;
+        frame.setLocation(x, y);
+
+        //窗口大小是否可以改变
+        frame.setResizable(false);
+
+        //获取屏幕宽高
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        frame.setVisible(true);
+    &#125;
+
+    public void walk() &#123;
+        while (true) &#123;
+            loopCount += 1;
+            try &#123;
+                Thread.sleep(100);
+            &#125; catch (InterruptedException e) &#123;
+                throw new RuntimeException(e);
+            &#125;
+            //根据变化方向改变x,y
+            if (flagX) x += 1;
+            else x -= 1;
+            if (flagY) y += 1;
+            else y -= 1;
+
+            //判断窗口是否跑出屏幕
+            if (x &lt; 0 || x + selfWidth &gt; screenWidth) flagX = !flagX;
+
+            if (y &lt; 0 || y + selfHeight &gt; screenHeight) flagY = !flagY;
+
+            frame.setLocation(x, y);
+
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="0x02-访问权限控制"><a href="#0x02-访问权限控制" class="headerlink" title="0x02 访问权限控制"></a>0x02 访问权限控制</h2><ul>
+<li>private 只能在类内部访问</li>
+<li>default 可以被同包其他类访问</li>
+<li>protected 可以被子类访问，包括上面</li>
+<li>public 可以在类外部访问</li>
+</ul>
+<h2 id="0x03-多态性"><a href="#0x03-多态性" class="headerlink" title="0x03 多态性"></a>0x03 多态性</h2><ol>
+<li>方法重写</li>
+<li>方法重载</li>
+<li>向上转型</li>
+<li>动态绑定</li>
+</ol>
+<h2 id="0x04-接口"><a href="#0x04-接口" class="headerlink" title="0x04 接口"></a>0x04 接口</h2><p>定义 implements 可以不写public static,实现加 Impl</p>
+<pre><code class="java">//interface1
+public interface Animal&#123;
+    void sleep();
+&#125;
+
+//interface2
+public interface Hunter&#123;
+    void hunt();
+&#125;
+
+//class 
+public class CatImpl implements Animal, Hunter&#123;
+    public void sleep()&#123;
+        sout;
+    &#125;
+    
+    public void hunt()&#123;
+        sout;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="0x05-内部类与匿名类"><a href="#0x05-内部类与匿名类" class="headerlink" title="0x05 内部类与匿名类"></a>0x05 内部类与匿名类</h2><h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><p>内部类可以使用外嵌类的成员变量和方法，其本身不能声明变量和类方法；外嵌类可以使用内部类声明对象作为外嵌类的成员，且仅供其外嵌类使用，除非将其设置位static，但是这样就无法使用外嵌类的成员变量。</p>
+<h3 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h3><pre><code class="java">abstract class Speak&#123;
+    Speak()&#123;
+        sout;
+    &#125;
+    public abstract void speakHello();
+&#125;
+
+public class Main&#123;
+    Speak speak = new Speak()&#123;
+        public void speakHello()&#123;
+            sout;
+        &#125;
+    &#125;;
+    speak.speakHello();
+    //or
+    new Speak()&#123;
+        public void speakHello()&#123;
+            sout;
+        &#125;
+    &#125;.speakHello;
+&#125;
+</code></pre>
+<p>匿名类主要为了实现，执行的任务或方法需要一个对象，但是有不值得创建一个全新的对象。可以继承，重写父类方法，且一定是内部类。由于匿名类是个子类，但没有类名，所以创建对象必须使用父类构造方法。匿名对象的引用可以传递给一个匹配的参数，匿名类常用方式是向方法的参数传值</p>
+<pre><code class="java">//a.java
+public class A &#123;
+    void f(Speak sp) &#123;
+        sp.speakHello();
+    &#125;
+&#125;
+
+//main.java
+A a = new a();
+a.f(new Speak() &#123;
+    public void speakHello()&#123;
+        sout;
+    &#125;
+&#125;);
+</code></pre>
+<p>和接口有关的匿名类</p>
+<pre><code class="java">//Cubic.java
+public interface Cubic &#123;
+    double getCubic(double x);
+&#125;
+
+//b.java
+public class B &#123;
+    void g(Cubic cu)&#123;
+        double ret = cu.getCubic(5);
+        sout(&quot;result = &quot; + ret);
+    &#125;
+&#125;
+
+///main.java
+Cubic cubic = new Cubic() &#123;
+    public double getCubic(double x) &#123;
+        return x * x * x;
+    &#125;
+&#125;;
+sout(cubic.getCubic(3));
+//或者
+sout(new Cubic() &#123;
+    public double getCubic(double x)&#123;
+        return x * x * x;
+    &#125;
+&#125;.getCubic(4));
+
+B b = new B();
+b.g(new Cubic() &#123;
+     public double getCubic(double x)&#123;
+        return x * x * x;
+    &#125;
+&#125;);
+</code></pre>
+<h2 id="0x06-数组"><a href="#0x06-数组" class="headerlink" title="0x06 数组"></a>0x06 数组</h2><p>Java中数组跟C还是有些区别，想了想还是记一下</p>
+<pre><code class="java">//静态初始化
+int[] a; //声明
+a = new int[]&#123;1, 2, 3&#125; //初始化
+//简化的静态初始化
+int[] a = &#123;1, 2, 3&#125;;
+
+//动态初始化 指定长度，由系统初始化每个元素的默认值
+int[] a = new int[3];
+</code></pre>
+<p>浅拷贝：将ab同时指向一块内存空间，修改a，b也会被修改</p>
+<pre><code class="java">int[] a = b;
+System.arraycopy(b, 0, a, 1);//从哪拷，从第几个开始，拷贝到哪，目标数组从几开始
+</code></pre>
+<p>深拷贝：重新开空间拷贝</p>
+<pre><code class="java">int a[] = new int[b.length];
+for (int i = 0; i &lt; b.length; i++) a[i] = b[i];
+</code></pre>
+<p>数组排序</p>
+<pre><code class="java">Arrays.sort(a);
+</code></pre>
+<p>不规则数组：多维</p>
+<pre><code class="java">int [][] a = new int int[4][];
+a[0] = new int[3];
+a[1] = new int[]&#123;6, 5, 4, 3&#125;;
+</code></pre>
+<h2 id="0x07-字符串和容器"><a href="#0x07-字符串和容器" class="headerlink" title="0x07 字符串和容器"></a>0x07 字符串和容器</h2><h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p><code>Java.lang.String</code>是Java的字符串类。String是一个不可变对象，所有对String修改的操作都要构造新的String实例。</p>
+<p><code>java.lang.StringBuffer</code>与<code>java.lang.StringBuilder</code>是可变的字符串对象，StringBuilder较快但是线程不安全。</p>
+<pre><code class="java">char[] data = &#123;&#39;a&#39;, &#39;b&#39;, &#39;c&#39;&#125;
+String s = new String(data);
+String s2 = new String(&quot;abc&quot;);
+String s3 = &quot;abc&quot;;
+String s4 = &quot;djai&quot;;
+String s5 = s3 + s4;
+</code></pre>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>分类</p>
+<blockquote>
+<p>Collection: List, Set</p>
+<p>Map: HashMap, HashTable, TreeMap, ConcurrentHashMap</p>
+</blockquote>
+<p>List 有序集合，允许重复元素，Set 无序表，不允许重复元素</p>
+<p>HashMap ：散列算法实现，底层用哈希表存储数据，因此要求键不能重复，线程不安全（HashTable添加了synchronized关键字确保线程同步检查，线程安全，但效率低），在查找删除修改方面效率都很高，允许key或value为null</p>
+<pre><code class="java">//List
+List list = new ArrayList();//数组
+List list2 = new LinkedList();//链表
+list.add(&quot;A&quot;);
+list.add(&quot;B&quot;);
+list.add(&quot;C&quot;);
+sout(list.get(0));
+Iterator it = list.iterator();//迭代器
+while(it.hasNext())&#123;
+    Object o = it.next();
+    sout(o);
+&#125;
+List&lt;String&gt; aList = new ArrayList&lt;&gt;();
+
+//hashmap
+Map&lt;String, String&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;张三&quot;, &quot;北京市&quot;);
+map.put(&quot;李四&quot;, &quot;海南省&quot;);
+for(Map.Entry&lt;String, String&gt; entry: map.entrySet())&#123;
+    String key = entry.getKey();
+    String val = entry.getValue();
+    sout(key + val);
+&#125;
+
+Iterator&lt;Map.Entry&lt;String, String&gt;&gt; entries = map.entrySet().iterator();
+while (entries.hasNext())&#123;
+    Map.Entry&lt;String, String&gt; entry = entries.next();
+    String key = entry.getKey();
+    String val = entry.getValue();
+    sout(key + val);
+&#125;
+
+for (String oneKey : map.keySet())&#123;
+    
+&#125;
+for (String oneVal : map.values())&#123;
+    
+&#125;
+</code></pre>
+<h2 id="0x08-异常"><a href="#0x08-异常" class="headerlink" title="0x08 异常"></a>0x08 异常</h2><p>异常产生主要原因</p>
+<blockquote>
+<ol>
+<li>Java内部错误发生异常，Java虚拟机产生异常</li>
+<li>编写的程序代码中错误产生的异常，如空指针异常，数组越界异常</li>
+<li>通过throw手动生成的异常，一般用来告知该方法调用者一些必要信息</li>
+</ol>
+</blockquote>
+<p>生成异常对象，并把它提交给运行时系统的过程称为抛出(throw)异常，运行时系统在方法调用栈中查找，直到找到能处理该类型异常的对象，这一过程称为捕获(catch)异常</p>
+<p>Java中有异常类<code>java.lang.Throwable</code>其下有俩个异常分支<code>Exception</code>(包括运行时和非运行时异常)和<code>Error</code></p>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><ul>
+<li><p>如果Java提供的内置异常类型不能满足程序设计需求，这时我们可以自己设计Java类库或框架，其中包括异常类型。实现自定义异常类需要继承Exception类或其子类，自定义运行时异常需要继承RuntimeException类或其子类。</p>
+</li>
+<li><p>一般命名为XXXException，XXX为功能</p>
+</li>
+<li><p>自定义异常类一般包括一个无参默认构造方法和一个以字符串的形式接受一个定制的异常消息，并将消息传递给超类的构造方法。</p>
+</li>
+</ul>
+<pre><code class="java">public class MyException extends Exception&#123;
+    String msg;
+    public MyException(String msg)&#123;
+        msg = msg;
+    &#125;
+    
+    @override
+    public String getMessage()&#123;
+        return msg;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">public class Main&#123;
+    int div(int a, int b) throws MyException&#123;
+        if (b == 0)
+            throw new MyException(&quot;分母不能为0&quot;);
+        return a/b;
+    &#125;
+    public static void main(String[] args)&#123;
+        try &#123;
+            sout(div(8, 0));
+            return;
+        &#125;catch (MyException me)&#123;
+            sout(&quot;catch&quot;);
+        &#125;finally &#123; //即使有return也会执行
+            sout(&quot;进入finally&quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>在try中打开文件操作，在finally中就可以写出关闭操作。</p>
+<h2 id="0x09-I-x2F-O流"><a href="#0x09-I-x2F-O流" class="headerlink" title="0x09 I&#x2F;O流"></a>0x09 I&#x2F;O流</h2><h3 id="什么是I-x2F-O"><a href="#什么是I-x2F-O" class="headerlink" title="什么是I&#x2F;O"></a>什么是I&#x2F;O</h3><p>Java中I&#x2F;O操作主要指使用Java进行输入输出操作。</p>
+<p>java.io是大多数面向对象数据流的输入输出类的主要软件包。java.nio采用的是块IO</p>
+<h3 id="数据流基本概念"><a href="#数据流基本概念" class="headerlink" title="数据流基本概念"></a>数据流基本概念</h3><p>数据流：一组有序，有起点和终点的字节的数据序列</p>
+<p>输入流：程序从输入流读取数据源，包括键盘，文件，网络，即将数据源读入到程序通信通道</p>
+<p>输出流：程序向输出流写数据，将程序中数据输出到外界。</p>
+<p>数据流分为</p>
+<ol>
+<li>字节流：数据流中最小的数据单元是字节</li>
+<li>字符流：。。。是字符，Java中字符是Unicode，一个字符占2字节</li>
+</ol>
+<h3 id="标准I-x2F-O"><a href="#标准I-x2F-O" class="headerlink" title="标准I&#x2F;O"></a>标准I&#x2F;O</h3><p>命令行参数</p>
+<p>标准输入输出：<code>System.out</code>、 <code>System.in</code> 、<code>System.err</code></p>
+<pre><code class="java">int input;
+try &#123;
+    while((input = System.in.read()) != &#39;q&#39;)&#123;
+    System.out.println((char)input)
+    &#125;
+&#125; catch(IOException e)&#123;
+    System.out.println(e.toString());
+&#125;
+
+InputStreamReader ir = new InputStreamReader(System.in);
+BufferedReader br = new BufferedReader(ir);
+try&#123;
+    //获取用户输入的一行
+    while(true)&#123;
+        s = in.readLine();
+        if(s.equals(&quot;exit&quot;)) break;
+        System.out.println(s);
+    &#125;    
+&#125;catch(IOException e)&#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+<h3 id="文件数据流"><a href="#文件数据流" class="headerlink" title="文件数据流"></a>文件数据流</h3><pre><code class="java">//字节流操作文件
+byte buff[] = new byte[1024];
+try &#123;
+    int cnt = System.in.read(buff);
+    FileOutputStream fos = new FileOutputStream(&quot;&quot;,true);
+    fos.write(buff, 0, cnt);
+    fos.close();
+&#125; catch (IOException)&#123;
+    e.printStackTrace();
+&#125;
+FileInputStream fis = null;
+try &#123;
+    fis = new File InputStream(&quot;1.txt&quot;);
+    byte buffer[] = new byte[1024];
+    int readLen = -1;
+    while((readLen = fis.read(buffer, 0, buffer.length)) != -1 &amp;&amp; readLen &gt; 0)&#123;
+        sout(new String(buffer, 0, readLen));
+    &#125;
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+//字符文件操作
+try &#123;
+    File file = new File(&quot;&quot;);
+    FileWriter fw = new FileWriter(file);
+    fw.write(&quot;&quot;);
+    fw.close();
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+
+try &#123;
+    File file = new File(&quot;&quot;);
+    FileReader fr = new FileReader(file);
+    int c = -1;
+    while(c = fr.read() != -1)&#123;
+        sout((char)c);
+    &#125;
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+
+//字符流和字节流转换
+try&#123;
+    FileInputStream fis = new FileInputStream(&quot;&quot;);
+    InputStreamReader isr = new InputStreamReader(fis);
+    FileOutPutStream fos = new FIleOutputStream(&quot;&quot;);
+    OutputStreamWriter osw = new OutputStreamWriter(fos);
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+<h3 id="字符流和字节流"><a href="#字符流和字节流" class="headerlink" title="字符流和字节流"></a>字符流和字节流</h3><h4 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h4><ul>
+<li><p>过滤流</p>
+<ul>
+<li>缓冲区数据流：有<code>BufferedInputStream</code>和<code>BufferedOutputStream</code></li>
+<li>数据数据流：专门的过滤流数据流来处理，有<code>DataInputStream</code>和<code>DataOnputStream</code>，允许对Java基本类型进行处理</li>
+</ul>
+<pre><code class="java">//缓冲区
+try&#123;
+    FileInputSteam fis = new FileInputStream(&quot;&quot;);
+    FileOutputStream fos = new FileOutputStream(&quot;&quot;);
+    BufferedInputStream bis = new BufferedInputStream(fis);
+    BufferedOnputStream bos = new BufferedOnputStream(fos);
+    
+    int data;
+    while((data = bis.read()) != -1)&#123;
+        bos.write(data);
+    &#125;
+    
+    bos.close();
+    bis.close();
+    fos.close();
+    fis.close();
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+
+//数据流对象
+try&#123;
+    FileOutputStream fos = new FileOutputStream(&quot;&quot;);
+    DataOnputStream dos = new DataOnputStream(fos); 
+    dos.writeInt(1);
+    dos.writeDouble(3.14);
+    dos.writeBoolean(true);
+    
+    dos.close();
+    fos.close();
+    FileInputSteam fis = new FileInputStream(&quot;&quot;);
+    DataInputStream dis = new DataInputStream(fis);
+    sout(&quot;%d %f %b&quot;, dis.readInt(), dis.readDouble(), dis.readBoolean());
+    
+    dis.close();
+    fis.close();
+&#125;catch (IOException e)&#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+</li>
+<li><p>可持久化</p>
+<ul>
+<li>对象通过描述自己状态的数值来记录自己的过程</li>
+<li>实现<code>Serializable</code>接口时，表明该类加入了对象串行化协议</li>
+<li>该接口无方法，是标记接口，用于告诉JVM这个类可以被序列化</li>
+<li><code>transient</code>关键字用于标记一个成员变量不需要被序列化</li>
+</ul>
+</li>
+<li><p>管道数据流、对象流</p>
+<ul>
+<li>管道数据流：<code>PipedOutputStream</code>和<code>PipedIutputStream</code>，管道两端建立后就可以通信</li>
+<li>对象流：<code>ObjectOutputStream</code>和<code>ObjectIutputStream</code>，将对象实力写入文件</li>
+</ul>
+<pre><code class="java">//序列化
+class Person implements Serializable&#123;
+    private String name;
+    private int age;
+    
+    public Person(String name, int age)&#123;
+        name = name;
+        age = age;
+    &#125;
+    
+    public String getName()&#123;
+        return name;
+    &#125;
+&#125;
+Person p1 = new Person(&quot;&quot;, 10);
+try&#123;
+    FileOutputStream fos = new FileOutputStream(&quot;&quot;);
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(p1);
+    oos.close();
+    fos.close();
+    
+    FileInputSteam fis = new FileInputStream(&quot;&quot;);
+    ObjectInputStream ois = new ObjectInputStream(fis);
+    Person p2 = (Person)ois.readObject();
+    ois.close();
+    sout(p2.getName());
+&#125;catch (IOException ioe)&#123;
+    ioe.printStackTrace();
+&#125;catch (ClassNotFoundException e)&#123;
+    throw new RuntimeException(e);
+&#125;
+
+//管道
+try&#123;
+    PipedOnputStream pos = new PipedOnputStream();
+    PipedInputStream pis = new PipedInputStream(pos);    
+    
+    //线程1
+    Thread writer = new Thread(() -&gt;&#123;
+        pos.write(&quot;q&quot;.getBytes());
+        pos.close();
+    &#125;);
+    //线程2
+    Thread reader = new Thread(() -&gt;&#123;
+        int data;
+        while((data = pis.read()) != -1)&#123;
+            sout((char)data);
+        &#125;
+        pis.close();
+    &#125;);
+    writer.start();
+    reader.start();
+    writer.join();
+    reader.join();
+&#125;catch (IOException ioe)&#123;
+    ioe.printStackTrace();
+&#125;catch (InterruptedException e)&#123;
+    throw new RuntimeException(e);
+&#125;
+</code></pre>
+</li>
+<li><p>缓冲区读者写者</p>
+<ul>
+<li>提高对数据读写效率，结合流使用，在流的基础上对流的功能增强，有<code>BufferedReader</code>和<code>BufferedWriter</code></li>
+</ul>
+<pre><code class="java">try&#123;
+    FileReader fr = new FileReader(&quot;&quot;);
+    FileWriter fw = new FileWriter(&quot;&quot;);
+    BufferedReader reader = new BufferedReader(fr);
+    BufferedWriter writer = new BufferedWriter(fw);
+    
+    String line;
+    while((line = reader.readLine()) != null)&#123;
+        writer.write(line + &quot;\r\n&quot;);
+    &#125;
+    reader.close();
+    writer.close();
+&#125;catch (IOException ioe)&#123;
+    ioe.printStackTrace();
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="文件处理"><a href="#文件处理" class="headerlink" title="文件处理"></a>文件处理</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ul>
+<li><code>Java.io.File</code>类：文件和文件目录路径的抽象表示形式</li>
+<li>File类中涉及到关于文件或文件目录的创建，删除，重命名，修改时间，文件大小等方法，并未涉及到文件读写操作，如若需要读写，必须使用IO流来完成</li>
+<li>想在Java中表示一个真实存在的文件或目录，那么必须有一个File对象</li>
+<li>File可以作为参数传给流的构造器</li>
+</ul>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ul>
+<li>绝对路径，相对路径</li>
+<li>路径分隔符： Windows 、Dos使用<code>\</code>，Linux使用<code>/</code></li>
+</ul>
+<pre><code class="java">File file = new File(&quot;&quot;);
+sout(file.getAbsolutePath());
+//等等许多函数。
+
+//当前系统分隔符
+sout(File.separator);
+</code></pre>
+<h4 id="随机访问文件"><a href="#随机访问文件" class="headerlink" title="随机访问文件"></a>随机访问文件</h4><ul>
+<li>可以从文件读取以及写入文件，使用文件输入输出流的读取和写入是顺序过程。</li>
+<li>可以在文件中任何位置读写</li>
+<li><code>RandomAccessFile</code>类的一个对象可以进行随机文件访问。可以读写字节和所有原始类型的值到一个文件，可以使用<code>readUTF()</code>和<code>writeUTF()</code>方法处理字符串。该类不在<code>InputStream</code>和<code>OutputStream</code>类的类层次结构中</li>
+</ul>
+<pre><code class="java">String fileName = &quot;&quot;;
+File f = new File(fileName);
+if (!f.exists())&#123;
+    RandomAccessFile raf = new RandomAccessFile(f.getPath(), &quot;rw&quot;);
+    raf.writeInt(1);
+    raf.writeUTF(&quot;1&quot;);
+&#125;
+int intVal = raf.readInt();
+long cur = raf.getFilePointer();
+raf.seek(0);
+raf.writeInt(2);
+raf.seek(cur);
+raf.close;
+</code></pre>
+<h2 id="0x0a-并行"><a href="#0x0a-并行" class="headerlink" title="0x0a 并行"></a>0x0a 并行</h2><h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>一个进程中执行的独立的，可调度的执行单元。可以通过继承Thread类或实现Runnable接口来创建线程。可以共享进程资源。线程结构通常包括线程ID、程序计数器：当前线程执行位置、寄存器集合：保存线程上下文信息、堆栈状态等。</p>
+<h4 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h4><p>继承Thread类，并重写<code>run()</code>方法定义逻辑，通过调用<code>start()</code>来启动线程</p>
+<pre><code class="java">class TestThread1 extends Thread&#123;
+    private int id, loopCount;
+    public TestThread1(int id, int loopCount)&#123;
+        id = id;
+        loopCount = loopCount;
+    &#125;
+    
+    @override
+    public void run()&#123;
+        for (int i = 0; i &lt; loopCount; i++)&#123;
+            sout(id);
+        &#125;
+    &#125;
+&#125;
+
+TestThread1 tt1 = new TestThread1(1,5);
+tt1.start();
+sout(tt1.getState());
+tt1.join();
+</code></pre>
+<p>生命周期：新建：new了还没start、就绪：准备执行未获得CPU资源、运行：正在执行、阻塞：因为某些原因暂时停止运行、终止：执行完毕或异常终止。</p>
+<p>可以通过<code>setPriority()</code>设置线程相对优先级，1-10，从低到高。</p>
+<p>主线程要等待用户线程，不需要等待守护线程，通过调用<code>setDaemon(true)</code>可以让线程变成守护线程。</p>
+<h4 id="Runnable"><a href="#Runnable" class="headerlink" title="Runnable"></a>Runnable</h4><p>只有一个<code>run()</code>方法， 适用于多线程编程，可以被多个线程执行，避免单继承限制。</p>
+<p>创建一个类，实现Runnable接口，重写run方法，创建Thread对象，将Runnable实现类的实例作为参数传递。</p>
+<pre><code class="java">public class MyRunnable implements Runnable&#123;
+    @override
+    public void run()&#123;
+        /*code*/
+    &#125;
+&#125;
+
+MyRunnable mr = new MyRunnable();
+Thread t1 = new Thread(mr, );
+t1.start();
+Thread t2 = new Thread(mr);
+t2.start();
+</code></pre>
+<h4 id="线程挂起"><a href="#线程挂起" class="headerlink" title="线程挂起"></a>线程挂起</h4><p><code>Thread.sleep(1000)</code>：延时1000ms</p>
+<p><code>TimeUnit.SECONDS.sleep(1)</code>：延时1s</p>
+<h4 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h4><p>Object：<code>wait()、notify()、notifyAll()</code>  sleep不会释放锁，需要捕捉异常，wait会释放锁；只能配合synchronized使用，不需要捕捉异常。</p>
+<p><code>synchronized</code>：修饰代码段，可以是块，也可以是方法</p>
+<p><code>volatile</code>：修饰变量，多个角色操作同一个变量</p>
+<p>Condition：<code>await()、signal()、signalAll() </code></p>
+<pre><code class="java">//Supermarket
+public class Supermarket&#123;
+    private volatile int count = 0;
+    private int max = 10;
+    
+    public synchronized void produce()&#123;
+        if(count &lt; max)&#123;
+            count++;
+            sout(Thread.currentThread().getName() + &quot;在生产，现有&quot; + count);
+            notify();
+        &#125; else &#123;
+            try &#123;
+                wait();
+            &#125; catch (InterrupptedException e) &#123;
+                throw new RuntimeException(e);
+            &#125;
+        &#125;
+    &#125;
+    
+    public synchronized void consume()&#123;
+        if(count &gt; 0)&#123;
+            count--;
+            sout(Thread.currentThread().getName() + &quot;消费了，还剩&quot; + count);
+            notify();
+        &#125; else &#123;
+            try &#123;
+                wait();
+            &#125; catch (InterrupptedException e) &#123;
+                throw new RuntimeException(e);
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+//Producter
+public class Producer implements Runnable&#123;
+    Supermarket s;
+    public Producer(Supermarket s)&#123;
+        s = s;
+    &#125;
+    @override
+    public void run() &#123;
+        while(true)&#123;
+            try &#123;
+                Thread.sleep(1000);
+            &#125; catch (InterrupptedException e) &#123;
+                throw new RuntimeException(e);
+            &#125;
+            s.produce();
+        &#125;
+    &#125;
+&#125;
+
+//Consumer
+public class Consumer implements Runnable &#123;
+    Supermarket s;
+    public Consumer(Supermarket s)&#123;
+        s = s;
+    &#125;
+    @override
+    public void run() &#123;
+        while(true)&#123;
+            try &#123;
+                Thread.sleep(1000);
+            &#125; catch (InterrupptedException e) &#123;
+                throw new RuntimeException(e);
+            &#125;
+            s.consume();
+        &#125;
+    &#125;
+&#125;
+
+//Main
+Supermarket sm = new Supermarket();
+Thread[] producers = new Thread[6];
+for (int i = 0; i &lt; producers.length; i++)&#123;
+    producers[i] = new Thread(new Producer(sm), new String(i + &quot;producer&quot;));
+    producers[i].start();
+&#125;
+Thread[] consumers = new Thread[4];
+for (int i = 0; i &lt; consumers.length; i++)&#123;
+    consumers[i] = new Thread(new Consumer(sm), new String(i + &quot;consumer&quot;));
+    consumers[i].start();
+&#125;
+
+//Condition
+final Lock lock = new ReentrantLock();
+final Condition condition1 = lock.newCondition();
+
+new Thread(()-&gt;&#123;
+    sout();
+    lock.lock();
+    try &#123;
+        condition1.await();
+        sout(&quot;wake&quot;)
+    &#125; catch (InterrupptedException e) &#123;
+        e.printStackTrace();
+    &#125; finally &#123;
+        lock.unlock
+    &#125;
+    lock.unlock();
+&#125;&#125;).start();
+
+Thread.sleep(1000);
+lock.lock();
+try &#123;
+    condition1.signal();
+&#125; finally &#123;
+    lock.unlock();
+&#125;
+</code></pre>
+<h2 id="0x0b-网络"><a href="#0x0b-网络" class="headerlink" title="0x0b 网络"></a>0x0b 网络</h2><h3 id="InetAddress"><a href="#InetAddress" class="headerlink" title="InetAddress"></a>InetAddress</h3><p>提供了IP地址和主机名之间的映射，类似DNS？</p>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><pre><code class="java">getByName(String host); //接受主机名作为参数，返回InetAddress对象
+getHostAddress(); //返回InetAddress对象IP地址字符串
+getHostName(); //返回InetAddress对象主机名，或IP地址
+getLocalHost(); //返回InetAddress对象。表示本地主机
+</code></pre>
+<p>其他配合<code>NetworkInterface</code>使用</p>
+<pre><code class="java">public static String macBytes2String(byte[] buf)&#123;
+    if (buf == null) return null;
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i &lt; buf.length; i++)&#123;
+        if(i != 0) sb.append(&quot;-&quot;);
+        String tmp = Integer.toHexString(buf[i] &amp; 0xFF);
+        if (tmp.length() == 1) sb.append(&quot;0&quot;);
+        sb.append(tmp);
+    &#125;
+    return sb.toString();
+&#125;
+
+InetAddress inet = InetAddress.getByName(&quot;www.baidu.con&quot;);
+sout(inet.getHostName()));
+
+Enumeration&lt;NetworkInterface&gt; networkInterface = NetworkInterface.getNetworkInterfaces();
+while(networkInterface.hasMoreElements())&#123;
+    NetworkInterface nif = networkInterface.nextElement();
+    Enumeration&lt;InetAddress&gt; inetAddress = nif.getInetAddresses();
+    while(inetAddress.hasMoreElements())&#123;
+        InetAddress addr = inetAddress.nextElements();
+        sout(nif.getDisplayName() + nif.getName() + macBytes2String(nif.getHardwareAddress);
+        sout(addr.getHostName() + addr.getAddress());
+    &#125;
+&#125;
+</code></pre>
+<h3 id="统一资源定位器"><a href="#统一资源定位器" class="headerlink" title="统一资源定位器"></a>统一资源定位器</h3><h4 id="URL概念"><a href="#URL概念" class="headerlink" title="URL概念"></a>URL概念</h4><p>URL（统一资源定位器），是互联网上用于描述信息位置的一种方式。是互联网上标准资源的地址。互联网上每个文件都有唯一的URL。</p>
+<blockquote>
+<p>结构 ： 协议:&#x2F;&#x2F;域名:端口&#x2F;目录&#x2F;文件?参数1&#x3D;&amp;参数2&#x3D;</p>
+</blockquote>
+<h4 id="URL创建"><a href="#URL创建" class="headerlink" title="URL创建"></a>URL创建</h4><p>使用<code>java.net.URL</code>类创建URL对象</p>
+<h4 id="同步请求"><a href="#同步请求" class="headerlink" title="同步请求"></a>同步请求</h4><p>指客户端发出请求后必须等服务器回应才能进行下一步操作。</p>
+<pre><code class="java">public static void get()&#123;
+    URL url = new URL(&quot;https://www.baidu.com&quot;);
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    conn.setRequestMethod(&quot;GET&quot;);
+    conn.setRequestProperty(&quot;Accept-Charset&quot;, &quot;UTF-8&quot;);
+    conn.connect();
+    int resCode = conn.getResponseCode();
+    if (resCode == HttpURLConnection.HTTP_OK)&#123;
+        InputStream is = conn.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is, &quot;UTF-8&quot;);
+        Stream&lt;String&gt; ss = new BufferedReader(isr).lines();
+        String s2s = ss.collect(Collectors.joining());
+    &#125;else&#123;
+        
+    &#125;
+&#125;
+
+public static void post()&#123;
+    URL url = new URL(&quot;https://www.baidu.com&quot;);
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    conn.setRequestMethod(&quot;POST&quot;);
+    conn.setRequestProperty(&quot;Accept-Charset&quot;, &quot;UTF-8&quot;);
+    conn.setDoInput(true);
+    conn.setDoOutput(true);
+    conn.setUseCaches(fal)
+    conn.connect();
+    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+    writer.write(&quot;user=admin&quot;);
+    writer.close();
+    int resCode = conn.getResponseCode();
+    if (resCode == HttpURLConnection.HTTP_OK)&#123;
+        InputStream is = conn.getInputStream();
+       
+        File dir = new File(&quot;dir&quot;);
+        File file = new File(&quot;fname.html&quot;);
+        if (!dir.exists()) dir.mkdirs();
+        FileOutputStream fos = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while((len = is.read(buffer)) != -1)&#123;
+            fos.write(buffer, 0, len);
+        &#125;
+        fos.close();
+       
+        InputStreamReader isr = new InputStreamReader(is, &quot;UTF-8&quot;);
+        Stream&lt;String&gt; ss = new BufferedReader(isr).lines();
+        String s2s = ss.collect(Collectors.joining());
+    &#125;else&#123;
+        
+    &#125;
+&#125;
+</code></pre>
+<h4 id="异步请求"><a href="#异步请求" class="headerlink" title="异步请求"></a>异步请求</h4><h5 id="OKhttp3"><a href="#OKhttp3" class="headerlink" title="OKhttp3"></a>OKhttp3</h5><p>为高效而生，提供了对HTTP&#x2F;2和SPDY的支持，对GZIP的默认支持，对HTTP响应的缓存机制，可以避免不必要的网络请求，以及其他优化。</p>
+<p>引入gradle包，创建实例</p>
+<p>File -&gt; Project -&gt; Modules -&gt; + -&gt; Library -&gt; From Maven -&gt; com.squareup.okhttp3</p>
+<pre><code class="java">public MyNet &#123;
+    private OkHttpClient okHttpClient;
+    
+    public MyNet()&#123;
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.readTimeout(20, TimeUnit.SECONDS);
+        clientBuilder.connectTimeout(5, TimeUnit.SECONDS);
+        clientBuilder.writeTimeout(60, TimeUnit.SECONDS);
+        
+        clientBuilder.sslSocketFactory(mySslSocketFactory());
+        clientBuilder.hostnameVerifier(new HostnameVerifier() &#123;
+            @override
+            public boolean verify(String s, SSLSession sslSession)&#123;
+                return true;
+            &#125;
+        &#125;);
+        okHttpClient = clientBuilder.build();
+    &#125;
+    
+    class TrustAllCerts implements X509TrustManager&#123;
+        @override
+        public void checkClientTrusted()&#123;
+            
+        &#125;
+        @override
+        public void checkServerTrusted()&#123;
+            
+        &#125;
+        @override
+        public X509Certificate[] getAcceptedIssuers()&#123;
+            return new ;
+        &#125;
+    &#125;
+    
+    private SSLSocketFactory mySslSocketFactory()&#123;
+        SSLSocketFactory mySslSocketFactory = null;
+        try&#123;
+            SSLContext sslContext = SSLContext.getInstance(&quot;TLS&quot;);
+            sslContext.init(null, new TrustManager[]&#123;new TrustAllCerts()， new SecureRandom()&#125;);
+            sslSocketFactory = sslContext.getSocketFactory();
+        &#125;catch(Exception e)&#123;
+            e.printStackTrace();
+        &#125;
+        return sslSocketFactory;
+    &#125;
+    
+    public interface MyCallback&#123;
+        void success(Call call, Response response) throws IOException;
+        void failure(Call call, IOException e);
+    &#125;
+    
+    public void get(String url, MyCallback myCallback)&#123;
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.get().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() &#123;
+           @override
+            public void onFailure()&#123;
+                myCallback.failure(call, e);
+            &#125;
+            
+            @override
+            public void onResponse()&#123;
+                myCallback.success(call, response);
+            &#125;
+        &#125;);
+    &#125;
+    
+    public void post(String url, Map&lt;String, String&gt; bodyMap, MyCallback myCallback)&#123;
+        FormBody.Builder builder = new FormBody.Builder();
+        Iterator&lt;String&gt; iterator = bodyMap.keySet().iterator();
+        while(iterator.hasNext())&#123;
+            String key = iterator.next().toString();
+            builder.add(key, bodyMap.get(key));
+        &#125;
+        RequestBody requestBody = builder.build();
+        Request.Builder rBuilder = new Request.Builder();
+        Request request = rBuilder.post(requestBody).url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback()&#123;
+            @override
+            public void onFailure()&#123;
+                myCallback.failure(call, e);
+            &#125;
+            
+            @override
+            public void onResponse()&#123;
+                myCallback.success(call, response);
+            &#125;
+        &#125;);
+    &#125;
+&#125;
+
+//main
+Mynet mynet = new MyNet();
+myNet.get(&quot;https://www.baidu.com&quot;, new MyNet.MyCallback()&#123;
+    @override
+    void success(Call call, Response response) throws IOException&#123;
+        sout(response.body().string());
+    &#125;
+&#125;);
+
+Map&lt;String, String&gt; reqBody = new HashMap&lt;&gt;();
+reqBody.put(&quot;username&quot;, &quot;admin&quot;);
+reqBody.put(&quot;password&quot;, &quot;admin&quot;)
+myNet.post(&quot;https://www.baidu.com&quot;, reqBody, new MyNet.MyCallback()&#123;
+    @override
+    void success(Call call, Response response) throws IOException&#123;
+        sout(response.body().string());
+    &#125;
+&#125;);
+</code></pre>
+<h3 id="Socket通信"><a href="#Socket通信" class="headerlink" title="Socket通信"></a>Socket通信</h3><h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4><ul>
+<li><p>创建socket</p>
+</li>
+<li><p>绑定socket到地址端口</p>
+</li>
+<li><p>监听连接</p>
+</li>
+<li><p>接受连接</p>
+</li>
+<li><p>发送和接收数据</p>
+</li>
+<li><p>关闭socket</p>
+<pre><code class="java">//Student 要发送的对象
+private String sName;
+private int sId;
+
+public Student(String name, int id)&#123;
+    sName = name;
+    sId = id;
+&#125;
+
+public String toString()&#123;
+    return ..;
+&#125;
+
+//Service implements Runnable
+private InputStream is = null;
+private OutputStream os = null;
+private Socket s = null;
+private ObjectOutputStream = null;
+
+public Service(Socket s)&#123;
+    s = s;
+&#125;
+public void run()&#123;
+    is = s.getInputStream();
+    os = s.getOutputStream();
+    
+    oos = new ObjectOutputStream(output);
+    oos.writeInt(114514);
+    oos.writeObject(new Student(&quot;张三&quot;, &quot;1&quot;));
+    oos.flush();
+&#125;
+
+//server
+ServerSocket serverSocket = null;
+Socket socket = null;
+try&#123;
+    serverSocket = new ServerSocket(8080);
+    sout(&quot;服务器启动&quot;);
+    //DatagramSocket datagramSocket = DatagramSocket() //udp
+    while(true)&#123;
+        socket = serverSocket.accpt();
+        sout(&quot;已连接到&quot; + socket.getRemoteSocketAddress().getHostAddress());
+        
+        new Thread(new Service(socket)).start();
+    &#125;
+    
+    InputStream is = socket.getInputStream();
+    OutputStream os = socket.getOutputStream();
+    //接收
+    byte[] buffer = new byte[1024];
+    int bytesRead = is.read(buffer);
+    String requestData = new String(buffer, 0, bytesRead);
+    sout(&quot;接收到&quot; + requestData);
+    //发送
+    String responseData = &quot;hello client&quot;;
+    os.write(responseData.getBytes());
+    sout(&quot;向客户端发送响应&quot; + responseData);
+    socket.close()
+&#125;catch(Exception e)&#123;
+    e.printStackTrace();
+&#125;
+
+//client
+try&#123;
+    Socket socket = new Socket(&quot;127.0.0.1&quot;, &quot;8080&quot;);
+    
+    InputStream is = socket.getInputStream();
+    OutputStream os = socket.getOutputStream();
+    
+    String send = &quot;hello server&quot;;
+    os.write(send.getBytes());
+    sout(&quot;发送数据&quot;);
+    
+    byte[] buffer = new byte[1024];
+    int bytesRead = is.read(buffer);
+    String recv = new String(buffer, 0, bytesRead);
+    sout(&quot;接收到&quot; + recv);
+    
+    socket.close()
+&#125;catch(Exception e)&#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+</li>
+</ul>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+                <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2023 - 2023
+                    嘉然今天学什么
+                        <span id="footer-icon">
+                            <i class="fa-solid fa-font-awesome fa-fw"></i>
+                        </span>
+                        &commat;fc235
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/argvchs/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+
+    </div>
+</footer>
+            </div>
+            </transition>
+            
+            <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+            </transition>
+            
+        </div>
+        <script src="/js/main.js"></script>
+        
+        
+<script
+    src="https://giscus.app/client.js"
+    data-repo="fc235/comment"
+    data-repo-id="R_kgDOJW5fXA"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOJW5fXM4CVyQR"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+        
+    </body>
+</html>
